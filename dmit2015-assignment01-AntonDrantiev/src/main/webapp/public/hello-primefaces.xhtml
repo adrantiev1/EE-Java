@@ -1,0 +1,49 @@
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions"
+	xmlns:hf="http://highfaces.org" 
+	xmlns:p="http://primefaces.org/ui"  
+	template="/WEB-INF/templates/template-assignment01.xhtml">
+	
+	<ui:param name="title" value="Hello PrimeFaces" />
+
+	<ui:define name="maincontent">
+		
+		<div class="jumbotron">
+        	<h1>Hello World - PrimeFaces Version</h1>
+        </div>
+        
+        <h:form >
+            <p:messages id="messages" />
+            
+            <p:outputLabel for="username" value="Your Name">
+            </p:outputLabel>
+            <p:inputText id="username"
+                         label="Your Name"
+                         value="#{currentHelloController.username}"                             
+                         required="true"
+                         requiredMessage="Name field value is required"
+                         placeholder="enter your name here">
+                <f:validateLength minimum="2" maximum="30">
+                </f:validateLength>      
+                <p:focus></p:focus>              
+            </p:inputText>            
+            
+            <p:commandButton value="Submit" 
+           		actionListener="#{currentHelloController.sayHello}"
+           		ajax="true"
+           		update="messages">
+           </p:commandButton>
+        </h:form>
+				
+	</ui:define>
+
+</ui:composition>

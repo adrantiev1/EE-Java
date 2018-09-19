@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="/WEB-INF/templates/template-assignment01.xhtml">
+
+	<ui:param name="title" value="Hello BootsFaces" />
+
+	<ui:define name="maincontent">
+
+		<b:jumbotron>
+			<h1>Hello World - BootsFaces Version</h1>
+		</b:jumbotron>
+
+		<b:form>
+			<b:messages id="messages" />
+
+			<b:inputText id="username" label="Your Name"
+				value="#{currentHelloController.username}" required="true"
+				requiredMessage="Name field value is required"
+				placeholder="enter your name here">
+				<f:validateLength minimum="2" maximum="30">
+				</f:validateLength>
+				<b:focus />
+			</b:inputText>
+
+			<b:commandButton value="Submit" look="primary"
+				actionListener="#{currentHelloController.sayHello}"
+				update="messages">
+			</b:commandButton>
+		</b:form>
+
+	</ui:define>
+
+</ui:composition>
