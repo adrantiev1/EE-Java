@@ -1,5 +1,6 @@
 package dmit2015.model;
 
+
 public class LoanSchedule {
 	private int paymentNumber;
 	private double interestPaid;
@@ -34,7 +35,7 @@ public class LoanSchedule {
 		return paymentNumber;
 	}
 	public void setPaymentNumber(int paymentNumber) {
-		if(paymentNumber >= 0) {
+		if(paymentNumber >= 1) {
 			this.paymentNumber = paymentNumber;
 		}
 	}
@@ -44,7 +45,9 @@ public class LoanSchedule {
 		return interestPaid;
 	}
 	public void setInterestPaid(double interestPaid) {
+		
 		if(interestPaid >= 0) {
+			
 			this.interestPaid = interestPaid;
 		}
 	}

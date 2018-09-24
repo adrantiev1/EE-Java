@@ -19,11 +19,26 @@
 		</b:jumbotron>
 
 		<!-- Put your code for assignment 1 below here  -->
+		<b:messages id="messages"></b:messages>
+       <b:form id="mortgageForm">
+       		<b:inputText id="amount" 
+       			label="Mortgage Amount" 
+       			placeholder="enter mortgage amount"
+       			value="#{loanController.currentLoan.mortgageAmount}">
+       			<b:focus></b:focus>
+       		</b:inputText>
+       		<b:inputText id="rate" 
+       			label="Interest Rate" 
+       			placeholder="enter interest rate"
+       			value="#{loanController.currentLoan.annualInterestRate}">
+       		</b:inputText>
+       		<b:commandButton value="calculate"
+       			ajax="true" update="messages #{loanController.currentLoan.monthlyPayment}"
+       			actionListener="#{loanController.calculate()}">
+       		</b:commandButton>
 
-
-
-
-
+       		
+       </b:form>
 
 			
 	</ui:define>
