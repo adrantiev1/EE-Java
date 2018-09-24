@@ -46,7 +46,7 @@ public class LoanController implements Serializable{
 //	method
 
 	public void calculate() {
-		Messages.addGlobalInfo("Your monthly mortgage payment is ${0}", monthlyMortgage);
+		Messages.addGlobalInfo("Your monthly mortgage payment is ${0}", );
 		
 		
 	}
