@@ -15,14 +15,15 @@ public class Loan {
 	}
 	
 	public Loan() {
-		super();
-		// TODO Auto-generated constructor stub
+		this.mortgageAmount = 0;
+		this.annualInterestRate = 0;
+		this.amortizationPeriod = 0;
 	}
 	
 
 
 	public Loan(double mortgageAmount, double annualInterestRate, int amortizationPeriod) {
-		super();
+		
 		this.mortgageAmount = mortgageAmount;
 		this.annualInterestRate = annualInterestRate;
 		this.amortizationPeriod = amortizationPeriod;
@@ -57,11 +58,11 @@ public class Loan {
 	public double getMonthlyPayment() 
 	{	
 		
-		double amortizationPeriodCalc = -12 * Double.valueOf(amortizationPeriod);
-		double annualInterestRateCalc = Math.pow(((annualInterestRate / 200)+1), (1/6) );
+		double amortizationPeriodCalc = -12.0 * (Double.valueOf(amortizationPeriod));
+		double annualInterestRateCalc = Math.pow(((annualInterestRate / 200.0)+1.0), (1.0/6.0) );
 		 
 		
-		double monthlyPayment = mortgageAmount * (((annualInterestRateCalc)-1) / (1 - (Math.pow(annualInterestRateCalc, amortizationPeriodCalc)))) ;
+		double monthlyPayment = mortgageAmount * (((annualInterestRateCalc)-1.0) / (1.0 - (Math.pow(annualInterestRateCalc, amortizationPeriodCalc)))) ;
 		
 		
 	
@@ -70,24 +71,46 @@ public class Loan {
 	
 	public LoanSchedule[] getLoanScheduleArray() {
 		
-		LoanSchedule newLoanSchedule = new LoanSchedule();
+		int totalPayments = amortizationPeriod *12;
+		LoanSchedule newLoanScheduleArray[] = new LoanSchedule[totalPayments];
+		double remainingBalance = mortgageAmount;
+//		Using formulas from figure 2 calculations
+		double monthlyPercentageRate = (Math.pow(((annualInterestRate / 200.0)+1.0), (1.0/6.0) ) - 1.0 );
+
 		
-		double monthlyPercentageRate = (Math.pow(((annualInterestRate / 200)+1), (1/6) ) - 1 );
-		
-//		rounding remaining balance to 2 decimal places
-		double remainingBalance = Math.round(newLoanSchedule.getRemainingBalance() * 100.0) /100.0;
-		double interestPaid = monthlyPercentageRate  * remainingBalance;
-		double principalPaid = getMonthlyPayment() - interestPaid;
-//		rounding to 2 decimal places
-		interestPaid = Math.round(interestPaid *100.0) / 100.0;
-		principalPaid = Math.round(principalPaid * 100.0) / 100.0;
-		
-		LoanSchedule newLoanScheduleArray[] = new LoanSchedule[4];
-		newLoanScheduleArray[0].getPaymentNumber();
-		newLoanScheduleArray[1].setInterestPaid(interestPaid);
-		newLoanScheduleArray[2].setPrincipalPaid(principalPaid);
-		newLoanScheduleArray[3].setRemainingBalance(remainingBalance);
-		
+
+		for (int paymentNumber = 1; paymentNumber <= totalPayments ; paymentNumber++) {
+			double interestPaid;
+			
+			if (paymentNumber < totalPayments) {
+				double monthlyPayment = getMonthlyPayment();
+				LoanSchedule currentLoanSchedule = new LoanSchedule();
+				
+				interestPaid = Math.round((monthlyPercentageRate  * remainingBalance)* 100.0 ) /100.0;
+				double principalPaid = Math.round((monthlyPayment - interestPaid) * 100.0 ) / 100.0;
+				remainingBalance = Math.round((remainingBalance-principalPaid)*100.0)/100.0;
+				
+				
+				currentLoanSchedule.setPaymentNumber(paymentNumber);
+				currentLoanSchedule.setInterestPaid(interestPaid);
+				currentLoanSchedule.setPrincipalPaid(principalPaid);
+				currentLoanSchedule.setRemainingBalance(remainingBalance);
+				int index = paymentNumber -1;
+				newLoanScheduleArray[index] = currentLoanSchedule;
+				
+			}else {
+				interestPaid = Math.round((monthlyPercentageRate  * remainingBalance)* 100.0 ) /100.0;
+				double principalPaid = remainingBalance;
+				remainingBalance = 0.0;
+				newLoanScheduleArray[paymentNumber-1] = new LoanSchedule(paymentNumber, interestPaid, principalPaid, remainingBalance);
+				
+			}
+			
+			
+			
+		}
+
+	
 		
 		
 		

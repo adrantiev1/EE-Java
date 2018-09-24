@@ -1,6 +1,8 @@
 package dmit2015.controller;
 
+import org.omnifaces.util.Messages;
 import org.primefaces.model.chart.BarChartModel;
+
 
 import dmit2015.model.Loan;
 import dmit2015.model.LoanSchedule;
@@ -17,8 +19,11 @@ public class LoanController implements Serializable{
 	
 	
 	private Loan  currentLoan = new Loan();
-	private LoanSchedule[] loanScheduleTable; 
+	
 	private BarChartModel loanChart;
+	
+	
+	
 	
 	public Loan getCurrentLoan() {
 		return currentLoan;
@@ -28,15 +33,6 @@ public class LoanController implements Serializable{
 		this.currentLoan = currentLoan;
 	}
 
-
-	public LoanSchedule[] getLoanScheduleTable() {
-		return loanScheduleTable;
-	}
-
-	public void setLoanScheduleTable(LoanSchedule[] loanScheduleTable) {
-		this.loanScheduleTable = loanScheduleTable;
-	}
-	
 	
 
 	public BarChartModel getLoanChart() {
@@ -46,8 +42,12 @@ public class LoanController implements Serializable{
 	public void setLoanChart(BarChartModel loanChart) {
 		this.loanChart = loanChart;
 	}
+	
+//	method
 
 	public void calculate() {
+		Messages.addGlobalInfo("Your monthly mortgage payment is ${0}", monthlyMortgage);
+		
 		
 	}
 	
