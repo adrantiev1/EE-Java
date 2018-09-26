@@ -21,9 +21,10 @@
 		</b:jumbotron>
 
 		<!-- Put your code for assignment 1 below here  -->
-	<b:messages id="messages"></b:messages>
+	
 	<br/>
        <b:form id="mortgageForm">
+       <b:messages id="messages"></b:messages>
        		<b:inputText id="amount" 
        			label="Mortgage Amount" 
        			placeholder="enter mortgage amount"
@@ -48,13 +49,11 @@
 
     </h:panelGrid>
     <br/>
-       		<b:commandButton value="calculate"
+       		<b:commandButton 
        			ajax="false" 
        			update="messages mortgageForm:paymentTable mortgageForm:Chart"
        			look="primary"
        			actionListener="#{loanController.calculate()}"
-       			
-       			
        			>Calculate
        		</b:commandButton>
        		<br/>
@@ -82,7 +81,6 @@
 		    <br/>
 		    
 		    <p:chart id="Chart"  type="bar" model="#{loanController.barModel}" style="height:500px"/>
-
        		
        </b:form>
 		
