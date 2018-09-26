@@ -1,8 +1,10 @@
+
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:f5="http://xmlns.jcp.org/jsf/passthrough"     
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:o="http://omnifaces.org/ui"
 	xmlns:of="http://omnifaces.org/functions"
@@ -14,12 +16,13 @@
 	<ui:param name="title" value="Mortgage Calculator" />
 
 	<ui:define name="maincontent">
-		<b:jumbotron>
+	<b:jumbotron>
 			<h1>Mortgage Payment Calculator</h1>
 		</b:jumbotron>
 
 		<!-- Put your code for assignment 1 below here  -->
-		<b:messages id="messages"></b:messages>
+	<b:messages id="messages"></b:messages>
+	<br/>
        <b:form id="mortgageForm">
        		<b:inputText id="amount" 
        			label="Mortgage Amount" 
@@ -39,21 +42,51 @@
         <h5>Amortization Period</h5>
     <h:panelGrid columns="1" style="margin-bottom: 10px" >
         <p:spinner id="spinner1" value="#{loanController.currentLoan.amortizationPeriod}" min="1" max="25" stepFactor="1"  >
-            <p:ajax process="@this"  />
+            <f:validateLongRange maximum="25" minimum="1" />
         </p:spinner>
-        <p:slider for="spinner1" minValue="1" maxValue="25" step="1" />
+        
 
     </h:panelGrid>
+    <br/>
        		<b:commandButton value="calculate"
-       			ajax="true" 
-       			update="messages"
-       			action-listener="#{loanController.calculate()}"
+       			ajax="false" 
+       			update="messages mortgageForm:paymentTable mortgageForm:Chart"
+       			look="primary"
+       			actionListener="#{loanController.calculate()}"
+       			
+       			
+       			>Calculate
+       		</b:commandButton>
+       		<br/>
+       		<br/>
+       		
+       		
+		    <b:dataTable  id="paymentTable" pageLength="12"
+       			value="#{loanController.currentLoan.loanScheduleArray}"
+       			var="payments"
+       			ajax="false"
        			
        			>
-       		</b:commandButton>
+       			<b:dataTableColumn label="Payment Number" value="#{payments.paymentNumber}">
+       			</b:dataTableColumn>
+       			<b:dataTableColumn label="Payment" value="#{loanController.currentLoan.monthlyPayment}">
+       			</b:dataTableColumn>
+       			<b:dataTableColumn label="Interest" value="#{payments.interestPaid}">
+       			</b:dataTableColumn>
+       			<b:dataTableColumn label="Principal" value="#{payments.principalPaid}">
+       			</b:dataTableColumn>
+       			<b:dataTableColumn label="Balance" value="#{payments.remainingBalance}">
+       			</b:dataTableColumn>
+       			
+       		</b:dataTable>
+		    <br/>
+		    
+		    <p:chart id="Chart"  type="bar" model="#{loanController.barModel}" style="height:500px"/>
 
        		
        </b:form>
+		
+
 
 			
 	</ui:define>
