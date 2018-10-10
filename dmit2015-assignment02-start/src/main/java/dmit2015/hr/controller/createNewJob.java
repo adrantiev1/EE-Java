@@ -41,5 +41,4 @@ public class createNewJob implements Serializable {
 			Messages.addGlobalError("Add unsuccessful");			
 		}
 	}
-	
 }
