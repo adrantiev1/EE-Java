@@ -23,8 +23,21 @@ public class HumanResourceService {
 	
 	public List<Location> findAllLocation(){
 		return entityManager.createQuery(
-				"SELECT l FROM Location l",Location.class
+				"SELECT l FROM Location l ORDER BY l.country.countryName",Location.class
 				).getResultList();
 	}
-
+	public void addJob(Job newJob) {
+		entityManager.persist(newJob);
+	}
+	public void updateJob(Job existingJob) {
+		entityManager.merge(existingJob);
+	}
+	public void deleteJob(Job existingjob) {
+		
+		entityManager.remove( existingjob );
+	}
+	
+	public Job findOneJob(int jobId) {
+		return entityManager.find(Job.class, jobId);
+	}
 }
