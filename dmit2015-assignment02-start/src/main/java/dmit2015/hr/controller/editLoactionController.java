@@ -81,7 +81,7 @@ public class editLoactionController implements Serializable {
 			countryIdSelected="";
 			Messages.addGlobalInfo("Delete successful");
 		} catch (Exception e) {
-			Messages.addGlobalError("Delete unsuccessful");			
+			Messages.addGlobalError("Delete unsuccessful {0}" , e);			
 		}
 	}
 	

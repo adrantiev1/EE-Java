@@ -10,6 +10,7 @@ import dmit2015.hr.entity.Country;
 import dmit2015.hr.entity.Job;
 import dmit2015.hr.entity.Location;
 
+
 @Stateless
 public class HumanResourceService {
 	
@@ -38,13 +39,20 @@ public class HumanResourceService {
 		entityManager.merge(existingJob);
 	}
 	public void deleteJob(Job existingjob) {
-		
+		existingjob = entityManager.merge(existingjob);
 		entityManager.remove( existingjob );
 	}
+	public void deleteJobById(String jobId) {
+		Job existingJob = findOneJob(jobId);
+		deleteJob(existingJob);
+	}
+	
 	
 	public Job findOneJob(String jobId) {
 		return entityManager.find(Job.class, jobId);
 	}
+	
+	
 	
 //	Location CRUD
 	
@@ -60,9 +68,14 @@ public class HumanResourceService {
 		entityManager.merge(existingLocation);
 	}
 	public void deleteLocation(Location existingLocation) {
-		
+		existingLocation = entityManager.merge(existingLocation);
 		entityManager.remove( existingLocation );
 	}
+	public void deleteLocationById(Long locationId) {
+		Location existingLocation = findOneLocation(locationId);
+		deleteLocation(existingLocation);
+	}
+	
 	
 //	for finding the country name and id
 	public List<Country> findAllCountries(){
