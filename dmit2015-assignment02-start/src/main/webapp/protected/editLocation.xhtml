@@ -10,12 +10,12 @@
 	xmlns:hf="http://highfaces.org"
 	template="/WEB-INF/templates/template-assignment02.xhtml">
 
-	<ui:param name="title" value="Job Edit" />
+	<ui:param name="title" value="Location Edit" />
 
 	<ui:define name="maincontent">
 
 		<b:jumbotron>
-			<h1>Job details</h1>
+			<h1>Location details</h1>
 		</b:jumbotron>
 		<b:messages id="messages" />
 	
@@ -24,56 +24,67 @@
 				 
 					
 					<b:inputText id="queryValue" 
-						label="Search Job ID" 
-						value="#{editJobController.idQueryValue}"
-						placeholder="enter a JobID to search for">
+						label="Search Location ID" 
+						value="#{editLoactionController.idQueryValue}"
+						placeholder="enter a Location ID to search for">
 						<b:focus></b:focus>
 					</b:inputText>
 					
 					<b:commandButton value="Search" 
 						icon-awesome="search"
 						look="info"
-						ajax="true" update="messages editForm:querySingleResultPanel "
-						actionListener="#{editJobController.findJob()}">
+						ajax="true" update="messages editForm:querySingleResultPanel"
+						actionListener="#{editLoactionController.findLocation()}">
 					</b:commandButton>
 					
 				
 			
 			
 			<p:outputPanel id="querySingleResultPanel">
-				<b:panel title="Job Details" 
-					rendered="#{existingJob != null ? 'true' : 'false' }"> 
+				<b:panel title="Location Details" 
+					rendered="#{existingLocation != null ? 'true' : 'false' }"> 
 					
-					<b:inputText id="JobId" 
-						label="JobID" 
+					<b:inputText id="Address" 
+						label="Street Address" 
 						readonly="true"
-						value="#{existingJob.jobId}">
+						value="#{existingLocation.streetAddress}"
+						placeholder= "Enter Street Address">
 					</b:inputText>
 				
-					<b:inputText id="JobTitle" 
-						label="Job Title"
-						value="#{existingJob.jobTitle}"
-						placeholder="enter job title">
+					<b:inputText id="posatlCode" 
+						label="Postal Code"
+						value="#{existingLocation.postalCode}"
+						placeholder="Enter Postal Code">
 					</b:inputText>
 			
-					<b:inputText id="minSalary" 
-						label="Minimum Salary"
-						value="#{existingJob.minSalary}"
-						placeholder="enter minimum salary">
+					<b:inputText id="city" 
+						label="City"
+						value="#{existingLocation.city}"
+						placeholder="Enter City">
 					</b:inputText>
 					
-					<b:inputText id="maxSalary" 
-						label="Maximum Salary"
-						value="#{existingJob.maxSalary}"
-						placeholder="enter maximum salary">
+					<b:inputText id="stateProvince" 
+						label="State / Province"
+						value="#{existingLocation.stateProvince}"
+						placeholder="Enter State / Province">
 					</b:inputText>
+					
+					<b:selectOneMenu id="countryId" value="#{createLocationController.countryIdSelected}"
+							label="Select location country">
+						<f:selectItem itemLabel="(Please select)" itemValue=""/>
+						<f:selectItems value="#{viewLocationController.countries}" 
+							var="country"
+							itemLabel="#{country.countryName}"
+							itemValue="#{country.countryId}" />
+		  			  </b:selectOneMenu>
+			
 					
 					<b:commandButton value="Update" 
 						look="primary"
 						icon-awesome="save"
 						ajax="false"
 						update = "messages editForm:querySingleResultPanel"
-						action="#{editJobController.updateJob()}">
+						action="#{editLoactionController.updateLocation()}">
 					</b:commandButton>
 					
 					<b:commandButton value="Delete" 
@@ -82,15 +93,15 @@
 						onclick="return confirm('Are you sure you want to delete this item?')"
 						update="messages editForm:querySingleResultPanel"
 						immediate="true"
-						action="#{editJobController.deleteJob()}">
+						action="#{editLoactionController.deleteLoaction()}">
 					</b:commandButton>
 					
 					<b:commandButton value="Cancel" 
 						look="default"
 						icon-awesome="cancel"
-						update="messages editForm:querySingleResultPanel editForm:queryFormPanel"
+						update="messages editForm:querySingleResultPanel "
 						immediate="true"
-						actionListener="#{editJobController.cancel()}">
+						actionListener="#{editLoactionController.cancel()}">
 					</b:commandButton>
 					
 				</b:panel>

@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import dmit2015.hr.entity.Country;
 import dmit2015.hr.entity.Job;
 import dmit2015.hr.entity.Location;
 
@@ -26,6 +27,8 @@ public class HumanResourceService {
 				"SELECT l FROM Location l ORDER BY l.country.countryName",Location.class
 				).getResultList();
 	}
+	
+	
 	
 //	Job CRUD
 	public void addJob(Job newJob) {
@@ -59,6 +62,17 @@ public class HumanResourceService {
 	public void deleteLocation(Location existingLocation) {
 		
 		entityManager.remove( existingLocation );
+	}
+	
+//	for finding the country name and id
+	public List<Country> findAllCountries(){
+		return entityManager.createQuery(
+				"SELECT c FROM Country c ORDER BY c.countryName",Country.class
+				).getResultList();
+	}
+	
+	public Country findOneCountry(String countryId) {
+		return entityManager.find(Country.class, countryId);
 	}
 	
 }

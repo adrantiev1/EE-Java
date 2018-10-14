@@ -10,6 +10,7 @@ import javax.inject.Named;
 
 import org.omnifaces.util.Messages;
 
+import dmit2015.hr.entity.Country;
 import dmit2015.hr.entity.Location;
 import dmit2015.hr.service.HumanResourceService;
 
@@ -30,8 +31,23 @@ public class createLocationController implements Serializable {
 		newLocation = new Location();
 		}
 	
+	private String countryIdSelected;
+	
+	public String getCountryIdSelected() {
+		return countryIdSelected;
+	}
+
+	public void setCountryIdSelected(String countryIdSelected) {
+		this.countryIdSelected = countryIdSelected;
+	}
+
+	
 	public void createNewLocation() {
 		try {
+			if(countryIdSelected != null) {
+				Country selectedCountry = currentHumanResourceService.findOneCountry(countryIdSelected);
+				newLocation.setCountry(selectedCountry);
+			}
 			currentHumanResourceService.addLocation(newLocation);
 			initLocation();
 			Messages.addGlobalInfo("Add successful");
@@ -41,4 +57,5 @@ public class createLocationController implements Serializable {
 		}
 	}
 
+	
 }

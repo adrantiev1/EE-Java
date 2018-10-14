@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.enterprise.inject.Produces;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.omnifaces.util.Messages;
@@ -16,11 +17,17 @@ import dmit2015.hr.service.HumanResourceService;
 public class editJobController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@Inject
 	private HumanResourceService currentHumanResourceService;
 	
 	@Produces
 	@Named
 	private Job existingJob;
+	public Job getExistingJob() {
+		return existingJob;
+	}
+	
+
 	private String idQueryValue;		// +getter +setter
 	
 	public String getIdQueryValue() {
@@ -41,7 +48,7 @@ public class editJobController implements Serializable {
 				
 			}
 		} catch (Exception e) {
-			Messages.addGlobalError("Query unsucessful");			
+			Messages.addGlobalError("Query unsucessful {0}", e);			
 		}
 	}
 	public void updateJob() {

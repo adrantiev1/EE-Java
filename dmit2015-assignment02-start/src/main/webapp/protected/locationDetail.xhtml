@@ -17,8 +17,48 @@
 		<b:jumbotron>
 			<h1>Location Details</h1>
 		</b:jumbotron>
+		<b:messages id="messages" />
+		<p:outputPanel id="querySingleResultPanel">
+		<b:form id="createForm">		
+			<b:selectOneMenu id="countryId" value="#{createLocationController.countryIdSelected}"
+							label="Select location country">
+						<f:selectItem itemLabel="(Please select)" itemValue=""/>
+						<f:selectItems value="#{viewLocationController.countries}" 
+							var="country"
+							itemLabel="#{country.countryName}"
+							itemValue="#{country.countryId}" />
+		    </b:selectOneMenu>
+			
+			<b:inputText id="streetAddress" 
+				label="Street Address"
+				value="#{newLocation.streetAddress}"
+				placeholder="enter street address">
+			</b:inputText>
+	
+			<b:inputText id="postalCode"
+				label="Postal Code"
+				value="#{newLocation.postalCode}"
+				placeholder="enter postal code">
+			</b:inputText>
+	
+			<b:inputText id="city" 
+				label="City"
+				value="#{newLocation.city}"
+				placeholder="enter city">
+			</b:inputText>
+			
 
-
+			<b:commandButton value="Add" 
+				icon-awesome="save"
+				look="primary"
+				ajax="true" update="messages createForm:querySingleResultPanel"
+											 
+				actionListener="#{createLocationController.createNewLocation()}">
+			</b:commandButton>
+				
+		</b:form>
+		
+	</p:outputPanel>
 
 
 

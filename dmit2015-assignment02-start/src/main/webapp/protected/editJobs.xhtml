@@ -20,9 +20,7 @@
 		<b:messages id="messages" />
 	
 		<b:form id="editForm">		
-			
-				 
-					
+
 					<b:inputText id="queryValue" 
 						label="Search Job ID" 
 						value="#{editJobController.idQueryValue}"
@@ -88,7 +86,7 @@
 					<b:commandButton value="Cancel" 
 						look="default"
 						icon-awesome="cancel"
-						update="messages editForm:querySingleResultPanel editForm:queryFormPanel"
+						update="messages editForm:querySingleResultPanel "
 						immediate="true"
 						actionListener="#{editJobController.cancel()}">
 					</b:commandButton>
