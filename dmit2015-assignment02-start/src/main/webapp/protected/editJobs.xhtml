@@ -10,34 +10,92 @@
 	xmlns:hf="http://highfaces.org"
 	template="/WEB-INF/templates/template-assignment02.xhtml">
 
-	<ui:param name="title" value="Job Listing" />
+	<ui:param name="title" value="Job Edit" />
 
 	<ui:define name="maincontent">
 
 		<b:jumbotron>
-			<h1>List of Jobs</h1>
+			<h1>Existing job details</h1>
 		</b:jumbotron>
-		<b:messages id="messages"></b:messages>
-		
-		<b:form id="jobsForm">
-			<b:dataTable value="#{viewJobsController.jobs}"
-				var="currentJob">
-				<b:dataTableColumn label="JobId" 
-					value="#{currentJob.jobId}">
-				</b:dataTableColumn>
-				<b:dataTableColumn label="Title" 
-					value="#{currentJob.jobTitle}">
-				</b:dataTableColumn>
-				<b:dataTableColumn label="Minimum" 
-					value="#{currentJob.minSalary}">
-				</b:dataTableColumn>
-				<b:dataTableColumn label="Max" 
-					value="#{currentJob.maxSalary}">
-				</b:dataTableColumn>
+		<b:messages id="messages" />
+	
+		<b:form id="editForm">		
+			<p:outputPanel id="queryFormPanel">
+				<b:panel title="Query Details" 
+					rendered="#{existingJob == null ? 'true' : 'false'}"> 
+					
+					<b:inputText id="queryValue" 
+						label="Search Job ID" 
+						value="#{editJobController.idQueryValue}"
+						placeholder="enter a JobID to search for">
+						<b:focus></b:focus>
+					</b:inputText>
+					
+					<b:commandButton value="Search" 
+						icon-awesome="search"
+						look="info"
+						ajax="true" update="messages editForm:querySingleResultPanel editForm:queryFormPanel"
+						actionListener="#{editJobController.findJob()}">
+					</b:commandButton>
+					
+				</b:panel>
+			</p:outputPanel>
+			
+			<p:outputPanel id="querySingleResultPanel">
+				<b:panel title="Job Details" 
+					rendered="#{existingJob != null ? 'true' : 'false' }"> 
+					
+					<b:inputText id="JobId" 
+						label="JobID" 
+						readonly="true"
+						value="#{existingJob.jobId}">
+					</b:inputText>
 				
-				
-				
-			</b:dataTable>
+					<b:inputText id="JobTitle" 
+						label="Job Title"
+						value="#{existingJob.jobTitle}"
+						placeholder="enter job title">
+					</b:inputText>
+			
+					<b:inputText id="minSalary" 
+						label="Minimum Salary"
+						value="#{existingJob.minSalary}"
+						placeholder="enter minimum salary">
+					</b:inputText>
+					
+					<b:inputText id="maxSalary" 
+						label="Maximum Salary"
+						value="#{existingJob.maxSalary}"
+						placeholder="enter maximum salary">
+					</b:inputText>
+					
+					<b:commandButton value="Update" 
+						look="primary"
+						icon-awesome="save"
+						ajax="false"
+						action="#{editJobController.updateJob()}">
+					</b:commandButton>
+					
+					<b:commandButton value="Delete" 
+						look="danger"
+						icon-awesome="trash"
+						onclick="return confirm('Are you sure you want to delete this item?')"
+						update="messages editForm:querySingleResultPanel"
+						immediate="true"
+						action="#{editJobController.deleteJob()}">
+					</b:commandButton>
+					
+					<b:commandButton value="Cancel" 
+						look="default"
+						icon-awesome="cancel"
+						update="messages editForm:querySingleResultPanel editForm:queryFormPanel"
+						immediate="true"
+						actionListener="#{editJobController.cancel()}">
+					</b:commandButton>
+					
+				</b:panel>
+			</p:outputPanel>			
+					
 		</b:form>
 
 

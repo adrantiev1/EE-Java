@@ -13,7 +13,7 @@ import dmit2015.hr.service.HumanResourceService;
 
 @Named
 @ViewScoped
-public class editJob implements Serializable {
+public class editJobController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private HumanResourceService currentHumanResourceService;
@@ -21,12 +21,12 @@ public class editJob implements Serializable {
 	@Produces
 	@Named
 	private Job existingJob;
-	private Integer idQueryValue;		// +getter +setter
+	private String idQueryValue;		// +getter +setter
 	
-	public Integer getIdQueryValue() {
+	public String getIdQueryValue() {
 		return idQueryValue;
 	}
-	public void setIdQueryValue(Integer idQueryValue) {
+	public void setIdQueryValue(String idQueryValue) {
 		this.idQueryValue = idQueryValue;
 	}
 	
@@ -66,6 +66,7 @@ public class editJob implements Serializable {
 	
 	public void cancel() {
 		existingJob = null;
+		idQueryValue = null;
 	}
 	
 	

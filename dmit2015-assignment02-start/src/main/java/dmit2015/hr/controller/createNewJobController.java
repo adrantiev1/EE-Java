@@ -17,7 +17,7 @@ import dmit2015.hr.service.HumanResourceService;
 
 @Named
 @ViewScoped
-public class createNewJob implements Serializable {
+public class createNewJobController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Inject

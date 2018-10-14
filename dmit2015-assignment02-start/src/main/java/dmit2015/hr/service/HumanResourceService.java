@@ -37,7 +37,7 @@ public class HumanResourceService {
 		entityManager.remove( existingjob );
 	}
 	
-	public Job findOneJob(int jobId) {
+	public Job findOneJob(String jobId) {
 		return entityManager.find(Job.class, jobId);
 	}
 }
