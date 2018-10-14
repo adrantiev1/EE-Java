@@ -10,14 +10,12 @@ import javax.inject.Named;
 
 import org.omnifaces.util.Messages;
 
-import dmit2015.hr.entity.Job;
+import dmit2015.hr.entity.Location;
 import dmit2015.hr.service.HumanResourceService;
-
-
 
 @Named
 @ViewScoped
-public class createNewJobController implements Serializable {
+public class createLocationController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
@@ -25,20 +23,22 @@ public class createNewJobController implements Serializable {
 	
 	@Produces
 	@Named
-	private Job newJob;
+	private Location newLocation;
 	
 	@PostConstruct
-	public void initNewJob() {
-		newJob = new Job();
-	}
+	public void initLocation() {
+		newLocation = new Location();
+		}
 	
-	public void createNewJOb() {
+	public void createNewLocation() {
 		try {
-			currentHumanResourceService.addJob(newJob);
-			initNewJob();
+			currentHumanResourceService.addLocation(newLocation);
+			initLocation();
 			Messages.addGlobalInfo("Add successful");
+			
 		} catch (Exception e) {
-			Messages.addGlobalError("Add unsuccessful");			
+			Messages.addGlobalError("Add unsuccessful");
 		}
 	}
+
 }

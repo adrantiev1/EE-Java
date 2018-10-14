@@ -26,6 +26,8 @@ public class HumanResourceService {
 				"SELECT l FROM Location l ORDER BY l.country.countryName",Location.class
 				).getResultList();
 	}
+	
+//	Job CRUD
 	public void addJob(Job newJob) {
 		entityManager.persist(newJob);
 	}
@@ -40,4 +42,24 @@ public class HumanResourceService {
 	public Job findOneJob(String jobId) {
 		return entityManager.find(Job.class, jobId);
 	}
+	
+//	Location CRUD
+	
+	public void addLocation(Location newLocation) {
+		entityManager.persist(newLocation);
+	}
+	
+	public Location findOneLocation(long locationId) {
+		return entityManager.find(Location.class, locationId);
+	}
+	
+	public void updateLocation(Location existingLocation) {
+		entityManager.merge(existingLocation);
+	}
+	public void deleteLocation(Location existingLocation) {
+		
+		entityManager.remove( existingLocation );
+	}
+	
 }
+

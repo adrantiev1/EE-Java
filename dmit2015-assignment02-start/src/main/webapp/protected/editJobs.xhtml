@@ -15,14 +15,13 @@
 	<ui:define name="maincontent">
 
 		<b:jumbotron>
-			<h1>Existing job details</h1>
+			<h1>Job details</h1>
 		</b:jumbotron>
 		<b:messages id="messages" />
 	
 		<b:form id="editForm">		
-			<p:outputPanel id="queryFormPanel">
-				<b:panel title="Query Details" 
-					rendered="#{existingJob == null ? 'true' : 'false'}"> 
+			
+				 
 					
 					<b:inputText id="queryValue" 
 						label="Search Job ID" 
@@ -34,12 +33,12 @@
 					<b:commandButton value="Search" 
 						icon-awesome="search"
 						look="info"
-						ajax="true" update="messages editForm:querySingleResultPanel editForm:queryFormPanel"
+						ajax="true" update="messages editForm:querySingleResultPanel "
 						actionListener="#{editJobController.findJob()}">
 					</b:commandButton>
 					
-				</b:panel>
-			</p:outputPanel>
+				
+			
 			
 			<p:outputPanel id="querySingleResultPanel">
 				<b:panel title="Job Details" 
@@ -73,6 +72,7 @@
 						look="primary"
 						icon-awesome="save"
 						ajax="false"
+						update = "messages editForm:querySingleResultPanel"
 						action="#{editJobController.updateJob()}">
 					</b:commandButton>
 					
