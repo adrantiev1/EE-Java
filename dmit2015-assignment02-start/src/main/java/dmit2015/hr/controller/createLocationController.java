@@ -54,6 +54,7 @@ public class createLocationController implements Serializable {
 			
 		} catch (Exception e) {
 			Messages.addGlobalError("Add unsuccessful");
+			Messages.addGlobalError("{0}", e.getMessage());	
 		}
 	}
 

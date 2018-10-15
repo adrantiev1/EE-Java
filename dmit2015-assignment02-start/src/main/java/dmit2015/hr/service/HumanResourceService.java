@@ -38,11 +38,14 @@ public class HumanResourceService {
 	public void updateJob(Job existingJob) {
 		entityManager.merge(existingJob);
 	}
-	public void deleteJob(Job existingjob) {
+	public void deleteJob(Job existingjob) throws Exception {
 		existingjob = entityManager.merge(existingjob);
+		if (existingjob.getEmployees().size() > 0  || existingjob.getJobHistories().size() > 0 ) {
+			throw new Exception("You are not allowed to delete a job with existing employees or histories.");
+		}
 		entityManager.remove( existingjob );
 	}
-	public void deleteJobById(String jobId) {
+	public void deleteJobById(String jobId) throws Exception {
 		Job existingJob = findOneJob(jobId);
 		deleteJob(existingJob);
 	}
@@ -67,11 +70,14 @@ public class HumanResourceService {
 	public void updateLocation(Location existingLocation) {
 		entityManager.merge(existingLocation);
 	}
-	public void deleteLocation(Location existingLocation) {
+	public void deleteLocation(Location existingLocation) throws Exception{
 		existingLocation = entityManager.merge(existingLocation);
+		if (existingLocation.getDepartments().size() > 0) {
+			throw new Exception("You are not allowed to delete a location with existing departments.");
+		}
 		entityManager.remove( existingLocation );
 	}
-	public void deleteLocationById(Long locationId) {
+	public void deleteLocationById(Long locationId) throws Exception {
 		Location existingLocation = findOneLocation(locationId);
 		deleteLocation(existingLocation);
 	}

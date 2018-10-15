@@ -38,7 +38,8 @@ public class createNewJobController implements Serializable {
 			initNewJob();
 			Messages.addGlobalInfo("Add successful");
 		} catch (Exception e) {
-			Messages.addGlobalError("Add unsuccessful");			
+			Messages.addGlobalError("Add unsuccessful");
+			Messages.addGlobalError("{0}", e.getMessage());	
 		}
 	}
 }

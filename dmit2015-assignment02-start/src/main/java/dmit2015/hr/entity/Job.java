@@ -5,6 +5,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import dmit2015.hr.service.ValidMaxSalary;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -14,6 +16,7 @@ import java.util.List;
  * 
  */
 @Entity
+@ValidMaxSalary
 @Table(name="JOBS")
 @NamedQuery(name="Job.findAll", query="SELECT j FROM Job j")
 public class Job implements Serializable {
