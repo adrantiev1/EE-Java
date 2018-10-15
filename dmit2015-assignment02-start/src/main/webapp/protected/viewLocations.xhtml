@@ -41,6 +41,12 @@
 				<b:dataTableColumn label="Postal Code" 
 					value="#{currentLoacation.postalCode}">
 				</b:dataTableColumn>
+				<b:dataTableColumn label="Action">
+					<b:link outcome="editLocation"  icon-awesome="edit" icon-size="lg">
+						<f:param name="id" value="#{currentLoacation.locationId}" />
+						edit
+					</b:link>
+				</b:dataTableColumn>
 				
 				
 				

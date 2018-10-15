@@ -13,6 +13,12 @@
 	<ui:param name="title" value="Job Edit" />
 
 	<ui:define name="maincontent">
+	<f:metadata>
+			<f:viewParam name="id" value="#{editJobController.idQueryValue}" />
+			<f:event type="preRenderView" 
+			listener="#{editJobController.findByQueryParameterId()}" />
+	</f:metadata>
+	
 
 		<b:jumbotron>
 			<h1>Job details</h1>

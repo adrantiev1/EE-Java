@@ -2,6 +2,9 @@ package dmit2015.hr.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -18,12 +21,17 @@ public class Job implements Serializable {
 
 	@Id
 	@Column(name="JOB_ID")
+	@NotBlank(message="Job ID value is required.")
+	@Size(max=9, message="Job ID value should be less than 10 characters")
 	private String jobId;
 
 	@Column(name="JOB_TITLE")
+	@NotBlank(message="Job Title value is required.")
+	@Size(max=34, message="Job Title value should be less than 35 characters")
 	private String jobTitle;
 
 	@Column(name="MAX_SALARY")
+	
 	private BigDecimal maxSalary;
 
 	@Column(name="MIN_SALARY")

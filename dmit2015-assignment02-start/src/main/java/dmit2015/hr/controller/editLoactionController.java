@@ -6,7 +6,9 @@ import javax.enterprise.inject.Produces;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.NotNull;
 
+import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 
 import dmit2015.hr.entity.Country;
@@ -29,7 +31,7 @@ public class editLoactionController implements Serializable {
 		return existingLocation;
 	}
 	
-
+	@NotNull(message="Search value is required.")
 	private String idQueryValue;
 	private String countryIdSelected;
 	
@@ -61,33 +63,46 @@ public class editLoactionController implements Serializable {
 		}
 	}
 	
-	public void updateLocation() {
+	public String updateLocation() {
+		String nextPage = null;
 		try {if (!countryIdSelected.isEmpty() && countryIdSelected != null) {
 			Country selectedCountry = currentHumanResourceService.findOneCountry(countryIdSelected);
 			existingLocation.setCountry(selectedCountry);
 		}
 			currentHumanResourceService.updateLocation(existingLocation);;
 			Messages.addGlobalInfo("Update successful");
+			nextPage = "viewLocations?faces-redirect=true";
 		} catch (Exception e) {
 			Messages.addGlobalError("Update unsuccessful");			
 		}
+		return nextPage;
 	}
 	
-	public void deleteLoaction() {
+	public String deleteLoaction() {
+		String nextPage = null;
 		try {
 			currentHumanResourceService.deleteLocation(existingLocation);;
 			existingLocation = null;
 			idQueryValue = null;
 			countryIdSelected="";
 			Messages.addGlobalInfo("Delete successful");
+			nextPage = "viewLocations?faces-redirect=true";
 		} catch (Exception e) {
 			Messages.addGlobalError("Delete unsuccessful {0}" , e);			
 		}
+		return nextPage;
 	}
 	
 	public void cancel() {
 		existingLocation = null;
 		idQueryValue = null;
+	}
+	public void findByQueryParameterId() {
+		if (!Faces.isPostback() && !Faces.isValidationFailed() ) {
+			if (idQueryValue != null && existingLocation == null) {
+				findLocation();		
+			}
+		}
 	}
 	
 	

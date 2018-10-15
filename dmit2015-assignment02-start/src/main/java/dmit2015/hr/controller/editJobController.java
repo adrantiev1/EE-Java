@@ -6,7 +6,9 @@ import javax.enterprise.inject.Produces;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.NotNull;
 
+import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 
 import dmit2015.hr.entity.Job;
@@ -27,7 +29,7 @@ public class editJobController implements Serializable {
 		return existingJob;
 	}
 	
-
+	@NotNull(message="Search value is required.")
 	private String idQueryValue;		// +getter +setter
 	
 	public String getIdQueryValue() {
@@ -48,32 +50,50 @@ public class editJobController implements Serializable {
 				
 			}
 		} catch (Exception e) {
-			Messages.addGlobalError("Query unsucessful {0}", e);			
+			Messages.addGlobalError("Query unsucessful");	
+			Messages.addGlobalError("{0}", e.getMessage());	
 		}
 	}
-	public void updateJob() {
+	public String updateJob() {
+		String nextPage = null;
 		try {
 			currentHumanResourceService.updateJob(existingJob);;
 			Messages.addGlobalInfo("Update successful");
+			nextPage = "viewJobs?faces-redirect=true";
 		} catch (Exception e) {
-			Messages.addGlobalError("Update unsuccessful");			
+			Messages.addGlobalError("Update unsuccessful");	
+			Messages.addGlobalError("{0}", e.getMessage());	
 		}
+		return nextPage;
 	}
 	
-	public void deleteJob() {
+	public String deleteJob() {
+		String nextPage = null;
 		try {
 			currentHumanResourceService.deleteJob(existingJob);;
 			existingJob = null;
 			idQueryValue = null;
 			Messages.addGlobalInfo("Delete successful");
+			nextPage = "viewJobs?faces-redirect=true";
+			
 		} catch (Exception e) {
-			Messages.addGlobalError("Delete unsuccessful");			
+			Messages.addGlobalError("Delete unsuccessful");	
+			Messages.addGlobalError("{0}", e.getMessage());	
 		}
+		return nextPage;
 	}
 	
 	public void cancel() {
 		existingJob = null;
 		idQueryValue = null;
+	}
+	
+	public void findByQueryParameterId() {
+		if (!Faces.isPostback() && !Faces.isValidationFailed() ) {
+			if (idQueryValue != null && existingJob == null) {
+				findJob();		
+			}
+		}
 	}
 	
 	

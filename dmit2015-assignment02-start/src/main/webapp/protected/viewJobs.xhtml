@@ -34,6 +34,12 @@
 				<b:dataTableColumn label="Max" 
 					value="#{currentJob.maxSalary}">
 				</b:dataTableColumn>
+				<b:dataTableColumn label="Action">
+					<b:link outcome="editJobs"  icon-awesome="edit" icon-size="lg">
+						<f:param name="id" value="#{currentJob.jobId}" />
+						edit
+					</b:link>
+				</b:dataTableColumn>
 				
 				
 				

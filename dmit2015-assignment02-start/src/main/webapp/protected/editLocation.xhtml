@@ -13,6 +13,11 @@
 	<ui:param name="title" value="Location Edit" />
 
 	<ui:define name="maincontent">
+	<f:metadata>
+			<f:viewParam name="id" value="#{editLoactionController.idQueryValue}" />
+			<f:event type="preRenderView" 
+			listener="#{editLoactionController.findByQueryParameterId()}" />
+	</f:metadata>
 
 		<b:jumbotron>
 			<h1>Location details</h1>
@@ -44,9 +49,15 @@
 				<b:panel title="Location Details" 
 					rendered="#{existingLocation != null ? 'true' : 'false' }"> 
 					
+					<b:inputText id="locationId" 
+						label="loaction ID" 
+						readonly="true"
+						value="#{existingLocation.locationId}"
+						>
+					</b:inputText>
+					
 					<b:inputText id="Address" 
 						label="Street Address" 
-						readonly="true"
 						value="#{existingLocation.streetAddress}"
 						placeholder= "Enter Street Address">
 					</b:inputText>
