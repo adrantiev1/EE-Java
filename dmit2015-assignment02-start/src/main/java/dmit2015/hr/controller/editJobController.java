@@ -6,6 +6,7 @@ import javax.enterprise.inject.Produces;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.omnifaces.util.Faces;
@@ -31,6 +32,7 @@ public class editJobController implements Serializable {
 	
 	@NotNull(message="Search value is required.")
 	private String idQueryValue;		// +getter +setter
+	
 	
 	public String getIdQueryValue() {
 		return idQueryValue;

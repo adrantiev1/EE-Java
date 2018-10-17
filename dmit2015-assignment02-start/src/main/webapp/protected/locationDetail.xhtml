@@ -47,13 +47,27 @@
 				placeholder="enter city">
 			</b:inputText>
 			
+			<b:inputText id="stateProvince" 
+				label="State / Province"
+				value="#{newLocation.stateProvince}"
+				placeholder="enter State / Province">
+			</b:inputText>
+			
 
 			<b:commandButton value="Add" 
 				icon-awesome="save"
 				look="primary"
-				ajax="true" update="messages createForm:querySingleResultPanel"
-											 
+				update="messages createForm:querySingleResultPanel"						 
 				actionListener="#{createLocationController.createNewLocation()}">
+			</b:commandButton>
+			
+			<b:commandButton value="Cancel" 
+						look="default"
+						icon-awesome="cancel"
+						ajax="false"
+						update="messages createForm:querySingleResultPanel"
+						immediate="true"
+						action="#{createLocationController.cancel()}">
 			</b:commandButton>
 				
 		</b:form>

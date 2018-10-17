@@ -42,4 +42,10 @@ public class createNewJobController implements Serializable {
 			Messages.addGlobalError("{0}", e.getMessage());	
 		}
 	}
+	
+	public String cancel() {
+		newJob= null;
+		String nextPage = "jobDetail?faces-redirect=true";
+		return nextPage;
+	}
 }

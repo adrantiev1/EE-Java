@@ -6,6 +6,7 @@ import javax.enterprise.inject.Produces;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.omnifaces.util.Faces;
@@ -33,6 +34,8 @@ public class editLoactionController implements Serializable {
 	
 	@NotNull(message="Search value is required.")
 	private String idQueryValue;
+	
+	@NotBlank(message="A Country must be selected")
 	private String countryIdSelected;
 	
 	public String getCountryIdSelected() {

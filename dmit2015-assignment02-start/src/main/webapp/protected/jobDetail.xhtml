@@ -19,43 +19,56 @@
 		</b:jumbotron>
 		<b:messages id="messages" />
 
-		<b:form id="createForm">		
-			<b:inputText id="JobID" 
-				label="Job ID"
-				value="#{newJob.jobId}"
-				placeholder="enter job ID">
-			</b:inputText>
-			
-			<b:inputText id="JobTitle" 
-				label="Job Title"
-				value="#{newJob.jobTitle}"
-				placeholder="enter job title">
-			</b:inputText>
-	
-			<b:inputText id="minSalary"
-				label="Min Salary"
-				value="#{newJob.minSalary}"
-				placeholder="enter minimum salary">
-			</b:inputText>
-	
-			<b:inputText id="maxSalary" 
-				label="Max Salary"
-				value="#{newJob.maxSalary}"
-				placeholder="enter maximum salary">
-			</b:inputText>
-
-		
-			
-			
-			
-			<b:commandButton value="Add" 
-				icon-awesome="save"
-				look="primary"
-				ajax="true" update="messages createForm:JobID createForm:JobTitle createForm:minSalary createForm:maxSalary"
-				actionListener="#{createNewJobController.createNewJOb()}">
-			</b:commandButton>
+		<b:form id="createForm">
+				<p:outputPanel id="querySingleResultPanel">		
+					<b:panel title="Job Details"> 
+						<b:inputText id="JobID" 
+							label="Job ID"
+							value="#{newJob.jobId}"
+							placeholder="enter job ID">
+						</b:inputText>
+						
+						<b:inputText id="JobTitle" 
+							label="Job Title"
+							value="#{newJob.jobTitle}"
+							placeholder="enter job title">
+						</b:inputText>
 				
-			<o:validateBean value="#{newJob}"/>	
+						<b:inputText id="minSalary"
+							label="Min Salary"
+							value="#{newJob.minSalary}"
+							placeholder="enter minimum salary">
+						</b:inputText>
+				
+						<b:inputText id="maxSalary" 
+							label="Max Salary"
+							value="#{newJob.maxSalary}"
+							placeholder="enter maximum salary">
+						</b:inputText>
+			
+
+						<b:commandButton value="Add" 
+							icon-awesome="save"
+							look="primary"
+							update="messages createForm:querySingleResultPanel"
+							actionListener="#{createNewJobController.createNewJOb()}">
+						</b:commandButton>
+						
+						<b:commandButton value="Cancel" 
+									look="default"
+									icon-awesome="cancel"
+									ajax="false"
+									update="messages createForm:querySingleResultPanel"
+									immediate="true"
+									action="#{createNewJobController.cancel()}">
+						</b:commandButton>
+						
+					</b:panel>
+					
+				</p:outputPanel>	
+				<o:validateBean value="#{newJob}" />	 
+				
+			
 		</b:form>
 		
 

@@ -7,6 +7,7 @@ import javax.enterprise.inject.Produces;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.NotBlank;
 
 import org.omnifaces.util.Messages;
 
@@ -31,6 +32,7 @@ public class createLocationController implements Serializable {
 		newLocation = new Location();
 		}
 	
+	@NotBlank(message="A Country must be selected")
 	private String countryIdSelected;
 	
 	public String getCountryIdSelected() {
@@ -56,6 +58,17 @@ public class createLocationController implements Serializable {
 			Messages.addGlobalError("Add unsuccessful");
 			Messages.addGlobalError("{0}", e.getMessage());	
 		}
+	}
+	
+	public String cancel() {
+		
+		
+		newLocation = null;
+		countryIdSelected = null;
+			
+		String nextPage = "locationDetail?faces-redirect=true";
+		return nextPage;
+		
 	}
 
 	
