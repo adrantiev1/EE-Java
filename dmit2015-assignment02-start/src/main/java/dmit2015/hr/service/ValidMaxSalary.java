@@ -17,7 +17,7 @@ import javax.validation.Payload;
 @Documented
 public @interface ValidMaxSalary {
 
-	String message() default "{dmit2015.hr.entity.Job.validMaxSalary.message}";
+	String message() default "{dmit2015.hr.entity.Job.maxSalary";
 	
 	Class<?>[] groups() default { };
 
