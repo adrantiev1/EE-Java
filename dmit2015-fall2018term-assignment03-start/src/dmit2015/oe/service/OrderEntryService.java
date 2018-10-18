@@ -19,6 +19,7 @@ import dmit2015.oe.entity.ProductDescriptionPK;
 import dmit2015.oe.entity.ProductInformation;
 import dmit2015.oe.report.CategorySales;
 import dmit2015.oe.report.ProductSales;
+import northwind.entity.Region;
 
 @Stateless
 public class OrderEntryService {
@@ -27,9 +28,8 @@ public class OrderEntryService {
 	private EntityManager entityManager;
 	
 	public Order findOneOrder(long orderId) {
-		// TODO: Complete the code for this method
+		return entityManager.find(Order.class, orderId);	
 		
-		return null;
 	}
 	
 	public List<Order> findAllOrderByDateRange(Date startDate, Date endDate) {
@@ -39,16 +39,16 @@ public class OrderEntryService {
 	}
 		
 	public List<Order> findAllOrderByCustomerId(Long customerId) {
-		// TODO: Complete the code for this method
-		
-		return null;
+		return entityManager.createQuery(
+				"SELECT o FROM Order o WHERE o.customer.customerID = :customerIdValue", 
+				Order.class)
+				.setParameter("customerIdValue", customerId)
+				.getResultList();
 	}
 	
 	
 	public Customer findOneCustomer(long customerId) {
-		// TODO: Complete the code for this method
-		
-		return null;
+		return entityManager.find(Customer.class, customerId);
 	}
 	
 	public Customer findOneCustomerByUniqueValue(String queryValue) { 
@@ -71,15 +71,12 @@ public class OrderEntryService {
 	}
 	
 	public ProductInformation findOneProductInformation(long productId) {
-		// TODO: Write the code for this method
-		return null;
+		return entityManager.find(ProductInformation.class, productId);
 	}
 	
 	
 	public Category findOneCategory(long categoryId) {
-		// TODO: Complete the code for this method
-		
-		return null;
+		return entityManager.find(Category.class, categoryId);
 	}
 
 	public List<Integer> findYearsWithOrders() {
