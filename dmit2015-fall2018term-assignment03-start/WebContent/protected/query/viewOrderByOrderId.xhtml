@@ -47,11 +47,65 @@
 		
 			<p:outputPanel id="querySingleResultPanel">
 			
-				<b:panel title="Order Details" rendered="#{not empty orderQueryController.queryOrderSingleResult}">
-					
+				<!-- <b:panel title="Order Details" rendered="#{(orderQueryController.queryOrderResultList != null) and 
+														   (orderQueryController.queryOrderSingleResult == null) }"> -->
+				<b:column span="6">
+							<b:panel title="Customer Details" collapsible="false" style="height: 250px">
+								<strong>
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.customer.custFirstName} #{orderQueryController.queryOrderSingleResult.customer.custLastName}" /> <br />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.customer.custAddress.streetAddress}" /> <br />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.customer.custAddress.city} 
+															#{orderQueryController.queryOrderSingleResult.customer.custAddress.stateProvince} 
+															#{orderQueryController.queryOrderSingleResult.customer.custAddress.postalCode}" 
+															 /> <br />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.customer.custAddress.countryId}" /> <br />	
+									<c:forEach var="item" items="#{orderQueryController.queryOrderSingleResult.customer.phoneNumbers}">
+										<tr>
+											<td class="text-right">
+												<h:outputText value="#{item}">
+													<f:convertNumber type="number"/>
+												</h:outputText>
+											</td>
+										</tr>
+							</c:forEach>
+								</strong>
+							</b:panel>
+						</b:column>
+				<b:column span="6">		
+					<b:panel title="Order Details" collapsible="false" style="height: 250px">
+					<b:panelGrid colSpans="4,8">
+									<!-- <h:outputLabel value="CustomerID" />
+									<h:outputText value="#{orderQueryController.querySingleResult.customer.customerID}" /> -->		
+									
+									<h:outputLabel value="OrderID" />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.orderId}" />		
+									
+									<h:outputLabel value="Order Date" />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.orderDate}">
+										<f:convertDateTime pattern="MMMM dd, yyyy"/>
+									</h:outputText>			
+									
+									<h:outputLabel value="Shipped Mode" />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.orderMode}">
+									</h:outputText>	
+									
+									<h:outputLabel value="Order Status" />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.orderStatus}" />									
+								
+									<h:outputLabel value="Sales Rep" />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.salesRep.firstName}
+															#{orderQueryController.queryOrderSingleResult.salesRep.lastName}">
+									</h:outputText>	
+									
+									<h:outputLabel value="Order Total" />
+									<h:outputText value="#{orderQueryController.queryOrderSingleResult.orderTotal}">
+										<f:convertNumber type="currency" currencySymbol="$"/>
+									</h:outputText>	
+								</b:panelGrid>	
 	
 						
 				</b:panel>
+			</b:column>	
 			
 			</p:outputPanel>
 		</b:form>

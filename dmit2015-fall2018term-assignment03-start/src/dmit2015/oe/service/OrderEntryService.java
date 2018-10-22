@@ -19,7 +19,7 @@ import dmit2015.oe.entity.ProductDescriptionPK;
 import dmit2015.oe.entity.ProductInformation;
 import dmit2015.oe.report.CategorySales;
 import dmit2015.oe.report.ProductSales;
-import northwind.entity.Region;
+
 
 @Stateless
 public class OrderEntryService {
