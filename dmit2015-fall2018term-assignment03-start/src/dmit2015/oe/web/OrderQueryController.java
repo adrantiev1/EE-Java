@@ -2,6 +2,7 @@ package dmit2015.oe.web;
 
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -118,6 +119,22 @@ public class OrderQueryController implements Serializable {
 	
 	public void findOrdersByDateRange() {
 		// TODO: Complete the code for this method
+		try {
+			queryOrderResultList = oeService.findAllOrderByDateRange(queryStartDate, queryEndDate);
+			if (queryOrderResultList==null) {
+				Messages.addGlobalWarn("There are no orders from \"{0}\" to \"{1}\". We found 0 results",queryStartDate,queryEndDate );
+			} else {
+				SimpleDateFormat newSdf = new SimpleDateFormat("MMM-dd-yyyy"); 
+				String stringStartDate = newSdf.format(queryStartDate);
+				String stringEndDate = newSdf.format(queryEndDate);
+				
+				Messages.addGlobalInfo("Found {0} result from \"{1}\" to \"{2}\" .",queryOrderResultList.size(),stringStartDate,stringEndDate );
+
+			}
+		} catch (Exception e) {
+			Messages.addGlobalError("Unable to perform search.");
+		}
+		
 		
 	}
 	

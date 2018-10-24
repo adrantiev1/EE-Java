@@ -60,7 +60,53 @@
 			<p:outputPanel id="queryResultListPanel">
 			
 				<b:panel title="Orders by Date Range" rendered="#{(orderQueryController.queryOrderResultList != null) and (orderQueryController.queryOrderSingleResult == null)}">
-				
+					
+					<b:dataTable id="bootsfacesTable"
+						value="#{orderQueryController.queryOrderResultList}"
+						var="item"
+						rendered="true"
+						searching="false"
+						paginated="false">
+						
+						<b:dataTableColumn value="#{item.orderId}">
+						</b:dataTableColumn>
+		
+						<b:dataTableColumn value="#{item.orderDate}">
+						</b:dataTableColumn>
+						
+						<b:dataTableColumn styleClass="text-right">
+							<f:facet name="header">
+								Unit Price
+							</f:facet>
+							<h:outputText value="#{item.orderTotal}">
+								<f:convertNumber type="currency" currencySymbol="$"/>
+							</h:outputText>
+						</b:dataTableColumn>
+						
+						<b:dataTableColumn value="#{item.orderMode}">
+						</b:dataTableColumn>
+						
+						<b:dataTableColumn value="#{item.orderStatus}">
+						</b:dataTableColumn>
+						
+						<b:dataTableColumn value="#{item.customer.custFirstName} 
+												  #{item.customer.custLastName}">
+						</b:dataTableColumn>
+						
+						<b:dataTableColumn value="#{item.salesRep.firstName} 
+												  #{item.salesRep.lastName}">
+						</b:dataTableColumn>
+						
+						<b:dataTableColumn label="Action">
+							<b:link outcome="editOrder"  icon-awesome="edit" icon-size="lg">
+							<f:param name="id" value="#{item.orderId}" />
+								view details
+							</b:link>
+						</b:dataTableColumn>
+						
+					
+								
+					</b:dataTable>
 					
 				</b:panel>
 			</p:outputPanel>
