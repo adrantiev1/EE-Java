@@ -15,6 +15,7 @@
 	<ui:param name="title" value="Find Order" />
 
 	<ui:define name="maincontent">
+
 	
 		<b:jumbotron>
 			<h1>#{text['page_viewOrderByOrderId.title']}</h1>
@@ -84,7 +85,7 @@
 											
 											<h:outputLabel value="Order Date" />
 											<h:outputText value="#{orderQueryController.queryOrderSingleResult.orderDate}">
-												<f:convertDateTime pattern="MMMM dd, yyyy"/>
+												<f:convertDateTime pattern="MMM dd, yyyy"/>
 											</h:outputText>			
 											
 											<h:outputLabel value="Shipped Mode" />

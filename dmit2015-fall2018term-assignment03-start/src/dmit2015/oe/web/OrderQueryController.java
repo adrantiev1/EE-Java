@@ -117,6 +117,7 @@ public class OrderQueryController implements Serializable {
 		findOrder();
 	}
 	
+	
 	public void findOrdersByDateRange() {
 		// TODO: Complete the code for this method
 		try {
@@ -124,7 +125,7 @@ public class OrderQueryController implements Serializable {
 			if (queryOrderResultList==null) {
 				Messages.addGlobalWarn("There are no orders from \"{0}\" to \"{1}\". We found 0 results",queryStartDate,queryEndDate );
 			} else {
-				SimpleDateFormat newSdf = new SimpleDateFormat("MMM-dd-yyyy"); 
+				SimpleDateFormat newSdf = new SimpleDateFormat("MMM dd,yyyy"); 
 				String stringStartDate = newSdf.format(queryStartDate);
 				String stringEndDate = newSdf.format(queryEndDate);
 				
