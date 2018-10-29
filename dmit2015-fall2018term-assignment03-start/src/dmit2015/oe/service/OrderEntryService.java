@@ -75,7 +75,7 @@ public class OrderEntryService {
 		
 	public List<Order> findAllOrderByCustomerId(Long customerId) {
 		return entityManager.createQuery(
-				"SELECT o FROM Order o WHERE o.customer.customerID = :customerIdValue", 
+				"SELECT o FROM Order o JOIN FETCH o.orderItems WHERE o.customerId = :customerIdValue", 
 				Order.class)
 				.setParameter("customerIdValue", customerId)
 				.getResultList();
@@ -88,8 +88,19 @@ public class OrderEntryService {
 	
 	public Customer findOneCustomerByUniqueValue(String queryValue) { 
 		// TODO: Complete the code for this method
+		Customer querySingleResult = null;
+		try {
+			querySingleResult = entityManager.createQuery(
+				"SELECT c FROM Customer c WHERE c.customerId = :customerIdValue", 
+				Customer.class)
+				.setParameter("customerIdValue", queryValue)
+				.getSingleResult();
+		} catch(NoResultException e) {
+			querySingleResult = null;
+		}
+		return querySingleResult;
 		
-		return null;
+		
 	}
 	
 	

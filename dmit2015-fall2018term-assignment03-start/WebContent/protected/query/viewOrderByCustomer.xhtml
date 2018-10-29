@@ -56,7 +56,30 @@
 			
 			<p:outputPanel id="queryCustomerSingleResultPanel" >
 				<b:panel title="Customer Detail" rendered="#{(orderQueryController.queryCustomerSingleResult != null) and (orderQueryController.queryOrderResultList == null)}">
-					
+					<b:column span="6">
+									<b:panel title="Customer Details" collapsible="false" style="height: 250px">
+											<strong>
+												<h:outputText value="#{orderQueryController.queryCustomerSingleResult.custFirstName} 
+																	 #{orderQueryController.queryCustomerSingleResult.custLastName}" /> <br />
+																	 
+												<h:outputText value="#{orderQueryController.queryCustomerSingleResult.custAddress.streetAddress}" /> <br />
+												<h:outputText value="#{orderQueryController.queryCustomerSingleResult.custAddress.city} 
+																	 #{orderQueryController.queryCustomerSingleResult.custAddress.stateProvince} 
+																	 #{orderQueryController.queryCustomerSingleResult.custAddress.postalCode}" 
+																		 /> <br />
+												<h:outputText value="#{orderQueryController.queryCustomerSingleResult.custAddress.countryId}" /> <br />	
+												<c:forEach var="item" items="#{orderQueryController.queryCustomerSingleResult.phoneNumbers}">
+													<tr>
+														<td class="text-right">
+															<h:outputText value="#{item}">
+																<f:convertNumber type="number"/>
+															</h:outputText>
+														</td>
+													</tr>
+										</c:forEach>
+											</strong>
+									</b:panel>
+						</b:column>
 					
 				</b:panel>
 
@@ -73,7 +96,74 @@
 			<p:outputPanel id="queryResultListPanel">
 			
 				<b:panel title="Customer Orders" rendered="#{(orderQueryController.queryOrderResultList != null) and (orderQueryController.queryOrderSingleResult == null)}">
-				
+					<b:dataTable id="bootsfacesTable"
+						value="#{orderQueryController.queryOrderResultList}"
+						var="item"
+						rendered="true"
+						searching="false"
+						paginated="false">
+						
+						<b:dataTableColumn value="#{item.orderId}">
+							<f:facet name="header">
+								Order ID
+							</f:facet>
+						</b:dataTableColumn>
+		
+						<b:dataTableColumn  label="Order Date">
+							<h:outputText value="#{item.orderDate}">
+								
+							<f:convertDateTime pattern="MMMM d,yyyy"/>
+							</h:outputText>	
+						</b:dataTableColumn>
+							
+						
+						<b:dataTableColumn styleClass="text-right">
+							<f:facet name="header">
+								Order Total
+							</f:facet>
+							<h:outputText value="#{item.orderTotal}">
+								<f:convertNumber type="currency" currencySymbol="$"/>
+							</h:outputText>
+						</b:dataTableColumn>
+						
+						<b:dataTableColumn value="#{item.orderMode}">
+							<f:facet name="header">
+								Order Mode
+							</f:facet>
+						</b:dataTableColumn>
+						
+						<b:dataTableColumn value="#{item.orderStatus}">
+							<f:facet name="header">
+								Order Status
+							</f:facet>
+						</b:dataTableColumn>
+						
+						<b:dataTableColumn value="#{item.customer.custFirstName} 
+												  #{item.customer.custLastName}">
+							<f:facet name="header">
+								Customer Name
+							</f:facet>						  
+						</b:dataTableColumn>
+						
+						<b:dataTableColumn value="#{item.salesRep.firstName} 
+												  #{item.salesRep.lastName}">
+							<f:facet name="header">
+								Sales Rep
+							</f:facet>
+						</b:dataTableColumn>
+																		
+						<b:dataTableColumn>
+							<f:facet name="header">
+								Action
+							</f:facet>
+							<b:commandButton value="view details" 
+								look="link"
+								actionListener="#{orderQueryController.findOrder(item.orderId)}"
+								ajax="true" update="queryForm:querySingleResultPanel queryForm:queryResultListPanel">
+							</b:commandButton>
+						</b:dataTableColumn>
+	
+					</b:dataTable>
 
 				</b:panel>
 			</p:outputPanel>

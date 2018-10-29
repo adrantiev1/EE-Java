@@ -142,10 +142,32 @@ public class OrderQueryController implements Serializable {
 	public void findCustomer() {
 		// TODO: Complete the code for this method
 		
+		try {
+			queryCustomerSingleResult = oeService.findOneCustomerByUniqueValue(queryCustomerValue);
+			if (queryCustomerSingleResult == null) {
+				Messages.addGlobalWarn("Unknown orderId \"{0}\". We found 0 results",queryCustomerValue );
+				
+			} else {
+				Messages.addGlobalInfo("Found 1 result.");
+
+			}
+		} catch (Exception e) {
+			Messages.addGlobalError("Unable to perform search!!!.");
+		}
+		
 	}
 	
 	public void findOrdersByCustomer() {
 		// TODO: Complete the code for this method
+		
+		try {
+			queryOrderResultList = oeService.findAllOrderByCustomerId(queryCustomerSingleResult.getCustomerId());
+			if( queryOrderResultList == null || queryOrderResultList.size() == 0) {
+				Messages.addGlobalWarn("Unknown customerId \"{0}\". We found 0 results", queryCustomerSingleResult.getCustomerId());
+			}		
+		} catch (Exception e) {
+			Messages.addGlobalError("Unable to perform search.");
+		}
 		
 	}
 	
