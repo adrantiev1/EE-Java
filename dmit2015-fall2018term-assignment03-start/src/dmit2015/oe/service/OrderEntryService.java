@@ -74,11 +74,19 @@ public class OrderEntryService {
 	}
 		
 	public List<Order> findAllOrderByCustomerId(Long customerId) {
-		return entityManager.createQuery(
-				"SELECT o FROM Order o JOIN FETCH o.orderItems WHERE o.customerId = :customerIdValue", 
-				Order.class)
-				.setParameter("customerIdValue", customerId)
-				.getResultList();
+		Customer cust = entityManager.find(Customer.class,customerId);
+		List<Order> queryResult = null;
+		try {
+			queryResult =  entityManager.createQuery(
+					"SELECT o FROM Order o WHERE o.customer = :customerIdValue", 
+					Order.class)
+					.setParameter("customerIdValue", cust)
+					.getResultList();
+		} catch (Exception e) {
+			Messages.addGlobalError(e.getMessage());
+			queryResult = null;
+		}
+		return queryResult;
 	}
 	
 	
@@ -93,12 +101,12 @@ public class OrderEntryService {
 			querySingleResult = entityManager.createQuery(
 				"SELECT c FROM Customer c WHERE c.customerId = :customerIdValue", 
 				Customer.class)
-				.setParameter("customerIdValue", queryValue)
+				.setParameter("customerIdValue", Long.parseLong(queryValue))
 				.getSingleResult();
 		} catch(NoResultException e) {
 			querySingleResult = null;
 		}
-		return querySingleResult;
+		return querySingleResult; 
 		
 		
 	}
