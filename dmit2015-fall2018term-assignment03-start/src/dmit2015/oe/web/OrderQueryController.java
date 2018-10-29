@@ -145,7 +145,7 @@ public class OrderQueryController implements Serializable {
 		try {
 			queryCustomerSingleResult = oeService.findOneCustomerByUniqueValue(queryCustomerValue);
 			if (queryCustomerSingleResult == null) {
-				Messages.addGlobalWarn("Unknown orderId \"{0}\". We found 0 results",queryCustomerValue );
+				Messages.addGlobalWarn("Unknown customerId \"{0}\". We found 0 results",queryCustomerValue );
 				
 			} else {
 				Messages.addGlobalInfo("Found 1 result.");

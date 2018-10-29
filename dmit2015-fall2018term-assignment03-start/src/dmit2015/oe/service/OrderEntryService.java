@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
 import org.apache.commons.lang3.StringUtils;
+import org.omnifaces.util.Components.ForEach;
 import org.omnifaces.util.Messages;
 
 import dmit2015.oe.entity.Category;
@@ -98,11 +99,42 @@ public class OrderEntryService {
 		// TODO: Complete the code for this method
 		Customer querySingleResult = null;
 		try {
-			querySingleResult = entityManager.createQuery(
-				"SELECT c FROM Customer c WHERE c.customerId = :customerIdValue", 
-				Customer.class)
-				.setParameter("customerIdValue", Long.parseLong(queryValue))
-				.getSingleResult();
+			
+			try {
+				
+				querySingleResult = entityManager.createQuery(
+						"SELECT c FROM Customer c WHERE c.custEmail = :customerEmailValue", 
+						Customer.class)
+						.setParameter("customerEmailValue", queryValue)
+						.getSingleResult();
+			
+				
+			} catch (Exception e) {
+				querySingleResult = null;
+				
+			}	
+			try {
+				if (querySingleResult == null) {
+					querySingleResult = entityManager.createQuery(
+							"SELECT c FROM Customer c WHERE c.customerId = :customerIdValue", 
+							Customer.class)
+							.setParameter("customerIdValue", Long.parseLong(queryValue))
+							.getSingleResult();
+				}
+				
+			} catch (NumberFormatException e) {
+				querySingleResult = null;
+				
+			}
+			try {
+				querySingleResult = (Customer)entityManager.createNativeQuery(
+						"SELECT * FROM CUSTOMERS c, TABLE(c.PHONE_NUMBERS) p WHERE p.Column_Value = :phoneValue", Customer.class)
+						.setParameter("phoneValue", queryValue)
+						.getSingleResult();
+			} catch (Exception e) {
+				querySingleResult = null;
+			}
+			
 		} catch(NoResultException e) {
 			querySingleResult = null;
 		}
