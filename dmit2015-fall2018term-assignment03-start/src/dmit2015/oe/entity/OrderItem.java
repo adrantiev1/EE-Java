@@ -30,7 +30,7 @@ public class OrderItem implements Serializable {
 
 	//bi-directional many-to-one association to ProductInformation
 	@ManyToOne
-	@JoinColumn(name="PRODUCT_ID")
+	@JoinColumn(name="PRODUCT_ID", insertable=false, updatable=false)
 	private ProductInformation productInformation;
 
 	public OrderItem() {

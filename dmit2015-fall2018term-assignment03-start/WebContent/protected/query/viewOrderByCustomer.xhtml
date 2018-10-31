@@ -56,31 +56,74 @@
 			
 			<p:outputPanel id="queryCustomerSingleResultPanel" >
 				<b:panel title="Customer Detail" rendered="#{(orderQueryController.queryCustomerSingleResult != null) and (orderQueryController.queryOrderResultList == null)}">
-					<b:column span="6">
-									<b:panel title="Customer Details" collapsible="false" style="height: 250px">
-											<strong>
-												<h:outputText value="#{orderQueryController.queryCustomerSingleResult.custFirstName} 
-																	 #{orderQueryController.queryCustomerSingleResult.custLastName}" /> <br />
-																	 
-												<h:outputText value="#{orderQueryController.queryCustomerSingleResult.custAddress.streetAddress}" /> <br />
-												<h:outputText value="#{orderQueryController.queryCustomerSingleResult.custAddress.city} 
-																	 #{orderQueryController.queryCustomerSingleResult.custAddress.stateProvince} 
-																	 #{orderQueryController.queryCustomerSingleResult.custAddress.postalCode}" 
-																		 /> <br />
-												<h:outputText value="#{orderQueryController.queryCustomerSingleResult.custAddress.countryId}" /> <br />	
-												<c:forEach var="item" items="#{orderQueryController.queryCustomerSingleResult.phoneNumbers}">
-													<tr>
-														<td class="text-right">
-															<h:outputText value="#{item}">
-																<f:convertNumber type="number"/>
-															</h:outputText>
-														</td>
-													</tr>
-										</c:forEach>
-											</strong>
-									</b:panel>
-						</b:column>
 					
+					<b:column span="6">	
+										<b:panelGrid colSpans="4,8">
+											<h:outputLabel value="CustomerID" />
+											<h:outputText value="#{orderQueryController.queryCustomerSingleResult.customerId}" />		
+											
+											<h:outputLabel value="First Name" />
+											<h:outputText value="#{orderQueryController.queryCustomerSingleResult.custFirstName}" />		
+											
+											<h:outputLabel value="Last Name" />
+											<h:outputText value="#{orderQueryController.queryCustomerSingleResult.custLastName}" />
+
+											<h:outputLabel value="Street Address" />
+											<h:outputText value="#{orderQueryController.queryCustomerSingleResult.custAddress.streetAddress}" />
+											
+											<h:outputLabel value="City" />
+											<h:outputText value="#{orderQueryController.queryCustomerSingleResult.custAddress.city}" />
+											
+											<h:outputLabel value="State / Province" />
+											<h:outputText value="#{orderQueryController.queryCustomerSingleResult.custAddress.stateProvince}" />
+											
+											<h:outputLabel value="Postal Code" />
+											<h:outputText value="#{orderQueryController.queryCustomerSingleResult.custAddress.postalCode}" />
+											
+											<h:outputLabel value="Phone Numbers" />
+											<c:forEach var="phone" items="#{orderQueryController.queryCustomerSingleResult.phoneNumbers}">
+												
+														<h:outputText value="#{phone}">
+															<f:convertNumber type="number"/>
+														</h:outputText>
+											</c:forEach>
+											
+											<h:outputLabel value="NLS Language" />
+											<h:outputText value="#{orderQueryController.queryCustomerSingleResult.nlsLanguage}" />
+											
+											<h:outputLabel value="NLS Teritory" />
+											<h:outputText value="#{orderQueryController.queryCustomerSingleResult.nlsTerritory}" />
+											
+											<h:outputLabel value="Credit Limit" />
+											<h:outputText value="#{orderQueryController.queryCustomerSingleResult.creditLimit}">
+												<f:convertNumber type="currency" currencySymbol="$"/>
+											</h:outputText>	
+											
+											<h:outputLabel value="Email" />
+											<h:outputText value="#{orderQueryController.queryCustomerSingleResult.custEmail}" />
+											
+											<h:outputLabel value="Account Manager" />
+											<h:outputText value="#{orderQueryController.queryCustomerSingleResult.accountManager.firstName} 
+																#{orderQueryController.queryCustomerSingleResult.accountManager.lastName}" />
+											
+											<h:outputLabel value="Date of birth" />
+											<h:outputText value="#{orderQueryController.queryCustomerSingleResult.dateOfBirth}" >
+												<f:convertDateTime pattern="MMM dd, yyyy"/>
+											</h:outputText>
+											
+											<h:outputLabel value="Martial Status" />
+											<h:outputText value="#{orderQueryController.queryCustomerSingleResult.maritalStatus}" />
+											
+											<h:outputLabel value="Gender" />
+											<h:outputText value="#{orderQueryController.queryCustomerSingleResult.gender}" />
+											
+											<h:outputLabel value="Income Level" />
+											<h:outputText value="#{orderQueryController.queryCustomerSingleResult.incomeLevel}" />
+											
+										</b:panelGrid>
+											
+									
+						</b:column>
 				</b:panel>
 
 				<b:commandButton value="View Customer Orders"
@@ -115,6 +158,18 @@
 							<f:convertDateTime pattern="MMMM d,yyyy"/>
 							</h:outputText>	
 						</b:dataTableColumn>
+						
+						<b:dataTableColumn value="#{item.orderStatus}">
+							<f:facet name="header">
+								Status
+							</f:facet>
+						</b:dataTableColumn>
+						
+						<b:dataTableColumn value="#{item.orderMode}">
+							<f:facet name="header">
+								Mode
+							</f:facet>
+						</b:dataTableColumn>
 							
 						
 						<b:dataTableColumn styleClass="text-right">
@@ -126,32 +181,13 @@
 							</h:outputText>
 						</b:dataTableColumn>
 						
-						<b:dataTableColumn value="#{item.orderMode}">
-							<f:facet name="header">
-								Order Mode
-							</f:facet>
-						</b:dataTableColumn>
-						
-						<b:dataTableColumn value="#{item.orderStatus}">
-							<f:facet name="header">
-								Order Status
-							</f:facet>
-						</b:dataTableColumn>
-						
-						<b:dataTableColumn value="#{item.customer.custFirstName} 
-												  #{item.customer.custLastName}">
-							<f:facet name="header">
-								Customer Name
-							</f:facet>						  
-						</b:dataTableColumn>
-						
 						<b:dataTableColumn value="#{item.salesRep.firstName} 
 												  #{item.salesRep.lastName}">
 							<f:facet name="header">
 								Sales Rep
 							</f:facet>
 						</b:dataTableColumn>
-																		
+																	
 						<b:dataTableColumn>
 							<f:facet name="header">
 								Action
@@ -170,8 +206,8 @@
 			
 			<p:outputPanel id="querySingleResultPanel">
 			
+				
 				<b:panel title="Order Details" rendered="#{not empty orderQueryController.queryOrderSingleResult}">
-				<b:panel title="Order Details" rendered="#{not empty orderQueryController.queryOrderSingleResult }">
 					<b:row>
 						<b:column span="6">
 									<b:panel title="Customer Details" collapsible="false" style="height: 250px">
@@ -200,8 +236,7 @@
 						<b:column span="6">		
 							<b:panel title="Order Details" collapsible="false" style="height: 250px">
 								<b:panelGrid colSpans="4,8">
-											<!-- <h:outputLabel value="CustomerID" />
-											<h:outputText value="#{orderQueryController.querySingleResult.customer.customerID}" /> -->		
+											
 											
 											<h:outputLabel value="OrderID" />
 											<h:outputText value="#{orderQueryController.queryOrderSingleResult.orderId}" />		
@@ -233,7 +268,7 @@
 						</b:panel>
 						</b:column>	
 					</b:row>
-				</b:panel>
+				
 				
 				<table class="table table-bordered table-striped">
 						<thead class="thead-inverse">
@@ -266,8 +301,8 @@
 							</c:forEach>
 						</tbody>
 					</table>
-						
 				</b:panel>
+				
 			
 			</p:outputPanel>
 	

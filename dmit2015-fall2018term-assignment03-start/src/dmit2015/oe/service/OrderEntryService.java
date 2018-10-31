@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 
 import org.apache.commons.lang3.StringUtils;
 import org.omnifaces.util.Components.ForEach;
@@ -98,8 +99,7 @@ public class OrderEntryService {
 	public Customer findOneCustomerByUniqueValue(String queryValue) { 
 		// TODO: Complete the code for this method
 		Customer querySingleResult = null;
-		try {
-			
+		try {	
 			try {
 				
 				querySingleResult = entityManager.createQuery(
@@ -113,6 +113,7 @@ public class OrderEntryService {
 				querySingleResult = null;
 				
 			}	
+			
 			try {
 				if (querySingleResult == null) {
 					querySingleResult = entityManager.createQuery(
@@ -127,10 +128,13 @@ public class OrderEntryService {
 				
 			}
 			try {
-				querySingleResult = (Customer)entityManager.createNativeQuery(
-						"SELECT * FROM CUSTOMERS c, TABLE(c.PHONE_NUMBERS) p WHERE p.Column_Value = :phoneValue", Customer.class)
-						.setParameter("phoneValue", queryValue)
-						.getSingleResult();
+				if (querySingleResult == null) {
+					querySingleResult = (Customer)entityManager.createNativeQuery(
+							"SELECT * FROM CUSTOMERS c, TABLE(c.PHONE_NUMBERS) p WHERE p.Column_Value = :phoneValue", Customer.class)
+							.setParameter("phoneValue", queryValue)
+							.getSingleResult();
+				}
+				
 			} catch (Exception e) {
 				querySingleResult = null;
 			}
@@ -166,37 +170,71 @@ public class OrderEntryService {
 	}
 
 	public List<Integer> findYearsWithOrders() {
-		// TODO: Write the code for this method
-		return null;
+		return entityManager.createQuery(
+				"SELECT YEAR(o.orderDate) "
+				+ "FROM Order o "
+				+ "WHERE YEAR(o.orderDate) IS NOT NULL "
+				+ "GROUP BY YEAR(o.orderDate) "
+				+ "ORDER BY YEAR(o.orderDate) "
+				, Integer.class)
+				.getResultList();
 	}
 	
 	public List<Category> findOnlineCatalogCategories() {
-		// TODO: Complete the code for this method
-		
-		return null;
+		return entityManager.createQuery("SELECT c FROM Category c "
+				+ "WHERE c.categoryId = 90 OR c.categoryId = 10 OR c.categoryId = 20 OR c.categoryId = 30"
+				+ "ORDER BY c.categoryName", Category.class).getResultList();
 	}
 	
 	public List<CategorySales> findCategorSalesForOnlineCatalog() {
-		// TODO: Write the code for this method
-		return null;
+		return entityManager.createQuery(
+				"SELECT new dmit2015.oe.report.CategorySales(c.categoryName, SUM(oi.unitPrice * oi.quantity) ) "
+				+ " FROM OrderItem oi, IN (oi.productInformation) p, IN (p.category) c, IN (oi.order) o "
+				+ " GROUP BY c.categoryId",
+				CategorySales.class)
+				.getResultList();
+
 	}
 	
 	public List<CategorySales> findCategorSalesForOnlineCatalogYear(Integer year) {
-		// TODO: Complete the code for this method
-		
-		return null;
+		if (year == null) {
+			return findCategorSalesForOnlineCatalog();
+		}
+		return entityManager.createQuery(
+			"SELECT new dmit2015.oe.report.CategorySales(c.categoryName, SUM(oi.unitPrice * oi.quantity)) "
+			+ " FROM OrderItem oi, IN (oi.productInformation) p, IN (p.category) c, IN (oi.order) o "
+			+ " WHERE YEAR(o.orderDate) = :yearValue "
+			+ " GROUP BY c.categoryId",
+			CategorySales.class)
+			.setParameter("yearValue", year)
+			.getResultList();
 	}
 	
 	public List<CategorySales> findCategorSalesForParentCategoryId(Long parentCategoryId) {
-		// TODO: Complete the code for this method
-		
-		return null;
+		return entityManager.createQuery(
+				"SELECT new dmit2015.oe.report.CategorySales(c.categoryName, SUM(oi.unitPrice * oi.quantity)) "
+				+ " FROM OrderItem oi, IN (oi.productInformation) p, IN (p.category) c, IN (oi.order) o "
+				+ " WHERE c.categoryId = :parentCatID "
+				+ " GROUP BY c.categoryId",
+				CategorySales.class)
+				.setParameter("parentCatID", parentCategoryId )
+				.getResultList();
 	}
 	
 	public List<CategorySales> findCategorSalesForParentCategoryIdAndYear(Long parentCategoryId, Integer year) {
-		// TODO: Complete the code for this method
+		if (year == null) {
+			return findCategorSalesForParentCategoryId(parentCategoryId);
+		}
+		return entityManager.createQuery(
+				"SELECT new dmit2015.oe.report.CategorySales(c.categoryName, SUM(oi.unitPrice * oi.quantity)) "
+				+ " FROM OrderItem oi, IN (oi.productInformation) p, IN (p.category) c, IN (oi.order) o "
+				+ " WHERE c.categoryId = :parentCatID  AND YEAR(o.orderDate) = :yearValue "
+				+ " GROUP BY c.categoryId",
+				CategorySales.class)
+				.setParameter("parentCatID", parentCategoryId)
+				.setParameter("yearValue", year)
+				.getResultList();
 		
-		return null;
 	}
 		
 	public List<ProductSales> findProductSales(int maxResult) {

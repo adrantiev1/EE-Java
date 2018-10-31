@@ -64,7 +64,8 @@ public class CategorySalesReportController implements Serializable {
 	}
 		
 	public void generateReport() {
-		// TODO: Complete the code for this method
+		categorySales = oeService.findCategorSalesForParentCategoryIdAndYear(selectedCategoryId, selectedYear);
+		reportTitle = selectedYear + " Online Category Sales";
 		
 	}
 	
