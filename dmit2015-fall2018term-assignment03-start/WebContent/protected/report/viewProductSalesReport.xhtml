@@ -25,8 +25,25 @@
 		<b:messages id="messages" />
 		
 		<b:form>	
-		
-
+<!-- 			<b:selectOneMenu id="year" value="#{categorySalesReportController.selectedYear}" 
+				label="Report Year"
+				update="reportOutputPanel"
+				onchange="ajax:categorySalesReportController.createReport();">
+				<f:selectItem itemLabel="All Years" itemValue="" />
+				<f:selectItems value="#{categorySalesReportController.retreiveYears()}" var="year"
+					itemLabel="#{year}"
+					itemValue="#{year}" />
+  			</b:selectOneMenu>
+  			
+			<p:outputPanel id="reportOutputPanel">
+				<b:dataTable value="#{categorySalesReportController.categorySales}" var="item"
+					searching="false"
+					paginated="true">
+					<b:dataTableColumn label="Category Name" value="#{item.categoryName}" />
+					<b:dataTableColumn label="Total Sales" value="#{of:formatCurrency(item.salesTotal,'$')}" style-class="text-right"/>
+				</b:dataTable>					
+			</p:outputPanel>
+ -->
 		
 		</b:form>
 

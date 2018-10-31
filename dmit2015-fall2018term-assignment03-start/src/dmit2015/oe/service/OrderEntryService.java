@@ -10,7 +10,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
+
 
 import org.apache.commons.lang3.StringUtils;
 import org.omnifaces.util.Components.ForEach;
@@ -188,11 +188,12 @@ public class OrderEntryService {
 	
 	public List<CategorySales> findCategorSalesForOnlineCatalog() {
 		return entityManager.createQuery(
-				"SELECT new dmit2015.oe.report.CategorySales(c.categoryName, SUM(oi.unitPrice * oi.quantity) ) "
-				+ " FROM OrderItem oi, IN (oi.productInformation) p, IN (p.category) c, IN (oi.order) o "
-				+ " GROUP BY c.categoryId",
-				CategorySales.class)
-				.getResultList();
+			"SELECT new dmit2015.oe.report.CategorySales(c.categoryName, SUM(oi.unitPrice * oi.quantity) ) "
+			+ " FROM OrderItem oi, IN (oi.productInformation) p, IN (p.category) c, IN (oi.order) o "
+			/*+ " WHERE c.categoryId = 10 "*/
+			+ " GROUP BY c.categoryId",
+			CategorySales.class)
+			.getResultList();
 
 	}
 	
