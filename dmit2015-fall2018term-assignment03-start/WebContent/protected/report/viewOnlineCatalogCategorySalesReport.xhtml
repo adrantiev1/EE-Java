@@ -39,15 +39,20 @@
 				<hf:chart id="piechart" type="pie" title="#{onlineCatalogCategorySalesReportController.reportTitle}"
 					height="600px"
 					yaxisLabel="Sales Total" xaxisLabel="Category Name">
+
+
 					<hf:chartSerie name="Category Sales" 
 						value="#{onlineCatalogCategorySalesReportController.categorySales}" var="point" 
 						point="#{point.categorySalesTotal}" 
 						tickLabel="#{point.categoryName}" 		
 						colorByPoint="true"
+						dataLabel="{point.name} ({point.percentage:.1f}%) ({point.y})"	
 						
 					/>
+			
+
 				</hf:chart>
-				
+
 
 				
 				
