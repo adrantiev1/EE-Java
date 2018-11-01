@@ -32,8 +32,8 @@
 				<p:ajax event="change" update="reportOutputPanel" listener="#{categorySalesReportController.generateReport()}" />
 				<f:selectItem itemLabel="All Categories" itemValue="" />
 				<f:selectItems value="#{categorySalesReportController.retreiveOnlineCatalogCategories()}" var="cat"
-					itemLabel="#{cat}"
-					itemValue="#{cat}" />
+					itemLabel="#{cat.categoryName}"
+					itemValue="#{cat.categoryId}" />
   			</h:selectOneMenu>
   			
   			<h:selectOneMenu id="year" value="#{categorySalesReportController.selectedYear}" 

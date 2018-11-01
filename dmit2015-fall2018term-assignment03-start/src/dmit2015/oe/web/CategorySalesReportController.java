@@ -64,8 +64,23 @@ public class CategorySalesReportController implements Serializable {
 	}
 		
 	public void generateReport() {
-		categorySales = oeService.findCategorSalesForParentCategoryIdAndYear(selectedCategoryId, selectedYear);
-		reportTitle = selectedYear + " Online Category Sales";
+		
+		if (selectedCategoryId == null && selectedYear != null ) {
+			selectedCategoryId = (long)90;
+			categorySales = oeService.findCategorSalesForParentCategoryIdAndYear(selectedCategoryId, selectedYear);
+			reportTitle = selectedYear + " Online Category Sales";
+		}else if(selectedCategoryId == null && selectedYear == null){
+			selectedCategoryId = (long)90;
+			categorySales = oeService.findCategorSalesForParentCategoryIdAndYear(selectedCategoryId, selectedYear);
+			reportTitle = "All Years Online Category Sales";
+		}else if(selectedCategoryId != null && selectedYear == null){
+			categorySales = oeService.findCategorSalesForParentCategoryIdAndYear(selectedCategoryId, selectedYear);
+			reportTitle = "All Years Online Category Sales";
+		}else{
+			categorySales = oeService.findCategorSalesForParentCategoryIdAndYear(selectedCategoryId, selectedYear);
+			reportTitle = selectedYear + " Online Category Sales";
+		}
+		
 		
 	}
 	
