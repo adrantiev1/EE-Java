@@ -186,9 +186,7 @@ public class OrderEntryService {
 	}
 	
 	public List<Category> findOnlineCatalogCategories() {
-		return entityManager.createQuery("SELECT c FROM Category c WHERE c.parentCategory.categoryId = 10"
-				
-				+ "ORDER BY c.parentCategory.categoryName", Category.class).getResultList();
+		return entityManager.createQuery("SELECT c FROM Category c WHERE c.parentCategory.categoryId = 90 ", Category.class).getResultList();
 	}
 	
 	public List<CategorySales> findCategorSalesForOnlineCatalog() {
@@ -237,16 +235,28 @@ public class OrderEntryService {
 	}
 	
 	public List<CategorySales> findCategorSalesForParentCategoryId(Long parentCategoryId) {
+		List<CategorySales>  CatSalesList = null;
+		if (parentCategoryId == (long)90) {
+			CatSalesList =  entityManager.createQuery(
+					"SELECT new dmit2015.oe.report.CategorySales(c.categoryName, SUM(oi.unitPrice * oi.quantity)) "
+					+ " FROM OrderItem oi, IN (oi.productInformation) p, IN (p.category) c, IN (oi.order) o "
+					+ " WHERE c.parentCategory.categoryId <> 90"
+					+ " GROUP BY c.categoryName",
+					CategorySales.class)
+					/*.setParameter("parentCatID", parentCategoryId )*/
+					.getResultList();
+		}else {
+			CatSalesList = entityManager.createQuery(
+					"SELECT new dmit2015.oe.report.CategorySales(c.categoryName, SUM(oi.unitPrice * oi.quantity)) "
+					+ " FROM OrderItem oi, IN (oi.productInformation) p, IN (p.category) c, IN (oi.order) o "
+					+ " WHERE c.parentCategory.categoryId = :parentCatID "
+					+ " GROUP BY c.categoryName",
+					CategorySales.class)
+					.setParameter("parentCatID", parentCategoryId)
+					.getResultList();
+		}
+		return CatSalesList;
 		
-
-		return entityManager.createQuery(
-				"SELECT new dmit2015.oe.report.CategorySales(c.categoryName, SUM(oi.unitPrice * oi.quantity)) "
-				+ " FROM OrderItem oi, IN (oi.productInformation) p, IN (p.category) c, IN (oi.order) o "
-				+ " WHERE c.parentCategory.categoryId = :parentCatID "
-				+ " GROUP BY c.categoryName",
-				CategorySales.class)
-				.setParameter("parentCatID", parentCategoryId )
-				.getResultList();
 	}
 	
 	public List<CategorySales> findCategorSalesForParentCategoryIdAndYear(Long parentCategoryId, Integer year) {
