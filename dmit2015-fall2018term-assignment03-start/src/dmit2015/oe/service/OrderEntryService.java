@@ -276,15 +276,27 @@ public class OrderEntryService {
 	}
 		
 	public List<ProductSales> findProductSales(int maxResult) {
-		// TODO: Complete the code for this method
-		
-		return null;
+		return entityManager.createQuery("SELECT new dmit2015.oe.report.ProductSales(p.productName,SUM(oi.unitPrice * oi.quantity),c.categoryName, SUM(oi.quantity), p.productId)"
+				+ " FROM OrderItem oi, IN (oi.productInformation) p, IN (p.category) c, IN (oi.order) o "
+			/*	+ " WHERE c.parentCategory.categoryId <> 90  "*/
+				+ " GROUP BY p.productName,c.categoryName, p.productId",
+				ProductSales.class)
+				.setMaxResults(maxResult)				
+				.getResultList();
 	}
 	
 	public List<ProductSales> findProductSalesForYear(Integer year, int maxResult) {
-		// TODO: Complete the code for this method
-		
-		return null;
+		if (year == null) {
+			return findProductSales(maxResult);
+		}
+		return entityManager.createQuery("SELECT new dmit2015.oe.report.ProductSales(p.productName,SUM(oi.unitPrice * oi.quantity),c.categoryName, SUM(oi.quantity), p.productId)"
+				+ " FROM OrderItem oi, IN (oi.productInformation) p, IN (p.category) c, IN (oi.order) o "
+				+ " WHERE YEAR(o.orderDate) = :yearValue"
+				+ " GROUP BY p.productName,c.categoryName, p.productId",
+				ProductSales.class)
+				.setMaxResults(maxResult)
+				.setParameter("yearValue", year)
+				.getResultList();
 	}
 	
 }

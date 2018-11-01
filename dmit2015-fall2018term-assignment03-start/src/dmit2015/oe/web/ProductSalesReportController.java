@@ -59,7 +59,8 @@ public class ProductSalesReportController implements Serializable {
 	}
 
 	public void generateReport() {
-		// TODO: Complete the code for this method
+		productSales = oeService.findProductSalesForYear(selectedYear, maxResult);
+		reportTitle = selectedYear + " Category Sales";
 		
 	}
 
