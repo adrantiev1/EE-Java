@@ -52,6 +52,7 @@ public class ProductSalesReportController implements Serializable {
 	public void init() {
 		productSales = oeService.findProductSales(maxResult);
 		reportTitle = "Top " + maxResult + " selling products of all time";
+		
 	}
 
 	public List<Integer> retreiveYearsWithOrders() {

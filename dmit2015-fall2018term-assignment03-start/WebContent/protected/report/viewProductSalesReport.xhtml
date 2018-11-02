@@ -25,8 +25,10 @@
 		<b:messages id="messages" />
 		
 		<b:form>	
+		
+		
 			<b:selectOneMenu id="year" value="#{productSalesReportController.selectedYear}" 
-				label="Report Year">
+				label="Report Year:" styleClass="form-control">
 				<p:ajax event="change" update="reportOutputPanel" listener="#{productSalesReportController.generateReport()}" />
 				<f:selectItem itemLabel="All Years" itemValue="" />
 				<f:selectItems value="#{productSalesReportController.retreiveYearsWithOrders()}" var="year"
@@ -34,16 +36,92 @@
 					itemValue="#{year}" />
   			</b:selectOneMenu>
   			
+  			 <h3 style="margin-top:0">Max Result</h3>
+			    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" >
+			        <p:outputLabel for="maxResult" value="MaxResult:" />
+			        <p:selectOneRadio id="maxResult" value="#{productSalesReportController.maxResult}" >
+			        <p:ajax event="change" update="reportOutputPanel" listener="#{productSalesReportController.generateReport()}" />
+			            <f:selectItem itemLabel="5" itemValue="5" />
+			            <f:selectItem itemLabel="10" itemValue="10" />
+			            <f:selectItem itemLabel="15" itemValue="15" />
+			            <f:selectItem itemLabel="20" itemValue="20" />
+			        </p:selectOneRadio>
+			    </h:panelGrid>
+ 
+  			
 			<p:outputPanel id="reportOutputPanel">
-				<b:dataTable value="#{productSalesReportController.productSales}" var="item"
+				<b:dataTable value="#{productSalesReportController.productSales}" var="item" 
 					searching="false"
-					paginated="true">
+					paginated="true" 
+					excel="true"
+	                csv="true"
+	                pdf="true"
+	                columnVisibility="true"
+	                copy="true"
+	                print="true"
+	                page-length="20"
+ 
+	                >
 					<b:dataTableColumn label="Category Name" value="#{item.categoryName}" />
 					<b:dataTableColumn label="Product ID" value="#{item.productId}" />
 					<b:dataTableColumn label="Product Name" value="#{item.productName}" />
 					<b:dataTableColumn label="Total Sales" value="#{of:formatCurrency(item.productSalesTotal,'$')}" style-class="text-right"/>
 					<b:dataTableColumn label="Toatl Quantity" value="#{item.quantityCount}" />
-				</b:dataTable>					
+					
+				</b:dataTable>	
+<!-- 				
+				 <p:dataTable var="item" value="#{productSalesReportController.productSales}">
+			        <f:facet name="header">
+			            new table
+			        </f:facet>
+			 
+			        <p:columnGroup type="header">
+			            
+			            <p:row>
+			                <p:column headerText="Category Name" />
+			                <p:column headerText="Product ID" />
+			                <p:column headerText="Product Name" />
+			                <p:column headerText="Total Sales" />
+            			    <p:column headerText="Total Quantity" />
+			            </p:row>
+			        </p:columnGroup>
+			 
+			        <p:column>
+			            <h:outputText value="#{item.categoryName}" />
+			        </p:column>
+			        <p:column>
+			            <h:outputText value="#{item.productId}" />
+			        </p:column>
+			        <p:column>
+			            <h:outputText value="#{item.productName}" />
+			        </p:column>
+			        <p:column>
+			            <h:outputText value="#{item.productSalesTotal}">
+			                <f:convertNumber type="currency" currencySymbol="$" />
+			            </h:outputText>
+			        </p:column>
+			        <p:column>
+			            <h:outputText value="#{item.quantityCount}" />
+			        </p:column>
+			 
+			        <p:columnGroup type="footer">
+			            <p:row>
+			                <p:column colspan="3" style="text-align:right" footerText="Totals:" />
+			                <p:column footerText="(#{item.productSalesTotal}) * (#{productSalesReportController.maxResult})" />
+
+			                <p:column footerText="" />
+			            </p:row>
+			        </p:columnGroup>
+ 
+			        <f:facet name="footer">
+			            Data between 2013-2014
+			        </f:facet>
+			        <p:dataExporter type="xls" postProcessor="#{manager.postProcessXLS}"
+                    target="mydata" fileName="myexcel" />
+    		</p:dataTable> -->
+ 
+    
+						
 			</p:outputPanel>
 
 		

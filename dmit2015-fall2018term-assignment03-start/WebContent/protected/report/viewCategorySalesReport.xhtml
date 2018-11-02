@@ -23,7 +23,7 @@
 		<b:messages id="messages" />
 		
 		<b:form>	
-			<p:outputLabel for="year" value="Report Year:" />
+			<p:outputLabel for="year" value="Report Category:" />
 			
   			<h:selectOneMenu id="cat" value="#{categorySalesReportController.selectedCategoryId}" 
   				styleClass="form-control"
@@ -35,7 +35,7 @@
 					itemLabel="#{cat.categoryName}"
 					itemValue="#{cat.categoryId}" />
   			</h:selectOneMenu>
-  			
+  			<p:outputLabel for="year" value="Report Year:" />
   			<h:selectOneMenu id="year" value="#{categorySalesReportController.selectedYear}" 
   				styleClass="form-control"
 				label="Report Year"
