@@ -28,9 +28,11 @@
 		
 		
 			<b:selectOneMenu id="year" value="#{productSalesReportController.selectedYear}" 
-				label="Report Year:" styleClass="form-control">
-				<p:ajax event="change" update="reportOutputPanel" listener="#{productSalesReportController.generateReport()}" />
+				label="Report Year:" styleClass="form-control" update="reportOutputPanel"
+				onchange="ajax:productSalesReportController.generateReport();">
+				
 				<f:selectItem itemLabel="All Years" itemValue="" />
+				
 				<f:selectItems value="#{productSalesReportController.retreiveYearsWithOrders()}" var="year"
 					itemLabel="#{year}"
 					itemValue="#{year}" />
@@ -52,7 +54,7 @@
 			<p:outputPanel id="reportOutputPanel">
 				<b:dataTable value="#{productSalesReportController.productSales}" var="item" 
 					searching="false"
-					paginated="true" 
+					paginated="false" 
 					excel="true"
 	                csv="true"
 	                pdf="true"
@@ -60,15 +62,18 @@
 	                copy="true"
 	                print="true"
 	                page-length="20"
- 
+ 					
 	                >
+	                
 					<b:dataTableColumn label="Category Name" value="#{item.categoryName}" />
 					<b:dataTableColumn label="Product ID" value="#{item.productId}" />
 					<b:dataTableColumn label="Product Name" value="#{item.productName}" />
 					<b:dataTableColumn label="Total Sales" value="#{of:formatCurrency(item.productSalesTotal,'$')}" style-class="text-right"/>
 					<b:dataTableColumn label="Toatl Quantity" value="#{item.quantityCount}" />
-					
+				
 				</b:dataTable>	
+				
+					
 <!-- 				
 				 <p:dataTable var="item" value="#{productSalesReportController.productSales}">
 			        <f:facet name="header">

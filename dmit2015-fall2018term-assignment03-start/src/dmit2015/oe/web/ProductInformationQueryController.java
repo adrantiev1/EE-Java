@@ -57,7 +57,16 @@ public class ProductInformationQueryController implements Serializable {
 	
 	
 	public void findProduct() {
-		// TODO: Complete the code for this method
+		try {
+			queryProductInformationSingleResult = oeService.findOneProductInformation(queryProductId);
+			if (queryProductInformationSingleResult==null) {
+				Messages.addGlobalWarn("No results");
+			} else {
+				Messages.addGlobalInfo("Found 1 result.");
+			}
+		} catch (Exception e) {
+			Messages.addGlobalError("Unable to perform search.");
+		}	
 		
 	}
 	
@@ -67,14 +76,30 @@ public class ProductInformationQueryController implements Serializable {
 	}
 	
 	public void findProductsByTerm() {
-		// TODO: Complete the code for this method
+		try {
+			queryProductInformationResultList = oeService.findAllProductInformationByPattern(queryPattern);
+			if( queryProductInformationResultList == null || queryProductInformationResultList.size() == 0) {
+				Messages.addGlobalWarn("We found 0 results for {0}", queryPattern);
+			}		
+		} catch (Exception e) {
+			Messages.addGlobalError("Unable to perform search.");
+		}
 		
 	}
 	
 	public void changeLanguage() {
-		if (queryProductInformationSingleResult != null) {
-			// TODO: Complete the code for this method
-			
+		try {
+			if (queryProductInformationSingleResult != null) {
+				
+				ProductDescription productDescription = oeService.findOneProductDescription(queryProductId, selectedLanguageId);
+				
+				queryProductInformationSingleResult.setProductName(productDescription.getTranslatedName());
+	 			queryProductInformationSingleResult.setProductDescription(productDescription.getTranslatedDescription());
+				
+			}
+		} catch (Exception e) {
+			Messages.addGlobalError("Unable to change language");
+			Messages.addGlobalError(e.getMessage());
 		}
 	}
 	

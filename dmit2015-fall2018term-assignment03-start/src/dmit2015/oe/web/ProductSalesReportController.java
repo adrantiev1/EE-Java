@@ -1,6 +1,7 @@
 package dmit2015.oe.web;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -23,6 +24,7 @@ public class ProductSalesReportController implements Serializable {
 	private Integer selectedYear;
 	private String reportTitle;
 	private int maxResult = 5;
+	
 
 	public Integer getSelectedYear() {
 		return selectedYear;
@@ -53,6 +55,8 @@ public class ProductSalesReportController implements Serializable {
 		productSales = oeService.findProductSales(maxResult);
 		reportTitle = "Top " + maxResult + " selling products of all time";
 		
+		ProductSales temp = new ProductSales("Grand Total",BigDecimal.valueOf(totalSales()),"Product Count:",null,productSales.size()); 
+		productSales.add(temp);
 	}
 
 	public List<Integer> retreiveYearsWithOrders() {
@@ -63,6 +67,19 @@ public class ProductSalesReportController implements Serializable {
 		productSales = oeService.findProductSalesForYear(selectedYear, maxResult);
 		reportTitle = selectedYear + " Category Sales";
 		
+		ProductSales temp = new ProductSales("Grand Total",BigDecimal.valueOf(totalSales()),"Product Count:",null,productSales.size()); 
+		productSales.add(temp);
+		
 	}
+	public double totalSales() {
+		// productSales = oeService.findProductSalesForYear(selectedYear, maxResult);
+		double temp = 0;
+		//productSales.forEach(item -> temp.add(item.getProductSalesTotal()) );
+		for (int i = 0; i < productSales.size(); i++) {
+			temp +=  productSales.get(i).getProductSalesTotal().doubleValue();
+		
+		}
+		return temp;
+		}
 
 }

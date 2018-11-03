@@ -154,15 +154,20 @@ public class OrderEntryService {
 	
 	
 	public List<ProductInformation> findAllProductInformationByPattern(String pattern) {
-		// TODO: Complete the code for this method
 		
-		return null;
+		return entityManager.createQuery(
+					"SELECT pi FROM ProductInformation pi WHERE LOWER(pi.productDescription) LIKE :patternValue OR  LOWER(pi.productName) LIKE :patternValue", 
+					ProductInformation.class)
+					.setParameter("patternValue","%" + pattern.toLowerCase() + "%")
+					.getResultList();		
 	}
 	
 	public ProductDescription findOneProductDescription(Long productId, String languageId) {
-		// TODO: Complete the code for this method
 		
-		return null;
+		ProductDescriptionPK productDescriptionPK = new ProductDescriptionPK();
+		productDescriptionPK.setProductId(productId);
+		productDescriptionPK.setLanguageId(languageId);
+		return entityManager.find(ProductDescription.class, productDescriptionPK);
 	}
 	
 	public ProductInformation findOneProductInformation(long productId) {

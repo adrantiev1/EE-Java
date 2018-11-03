@@ -68,11 +68,11 @@ public class CategorySalesReportController implements Serializable {
 		if (selectedCategoryId == null && selectedYear != null ) {
 			selectedCategoryId = (long)90;
 			categorySales = oeService.findCategorSalesForParentCategoryIdAndYear(selectedCategoryId, selectedYear);
-			reportTitle = selectedYear + " Online Category Sales";
+			reportTitle = selectedYear + " All Category Sales";
 		}else if(selectedCategoryId == null && selectedYear == null){
 			selectedCategoryId = (long)90;
 			categorySales = oeService.findCategorSalesForParentCategoryIdAndYear(selectedCategoryId, selectedYear);
-			reportTitle = "All Years Online Category Sales";
+			reportTitle = "All Years Sales";
 		}else if(selectedCategoryId != null && selectedYear == null){
 			categorySales = oeService.findCategorSalesForParentCategoryIdAndYear(selectedCategoryId, selectedYear);
 			reportTitle = "All Years Online Category Sales";

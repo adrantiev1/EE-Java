@@ -51,6 +51,52 @@
 				<b:panel title="ProductInformations by Date Range" 
 					rendered="#{(productInformationQueryController.queryProductInformationResultList != null) and (productInformationQueryController.queryProductInformationSingleResult == null)}">
 				
+					<b:dataTable id="productsByPattern"
+						value="#{productInformationQueryController.queryProductInformationResultList}"
+						var="product"
+						searching="true"
+						paginated="true">
+						<b:dataTableColumn >
+							<f:facet name="header">
+								Product Id
+							</f:facet>
+							<h:outputText value="#{product.productId}" />
+						</b:dataTableColumn>
+						
+						<b:dataTableColumn >
+							<f:facet name="header">
+								Product Name
+							</f:facet>
+							<h:outputText value="#{product.productName}" />
+						</b:dataTableColumn>
+						
+						<b:dataTableColumn >
+							<f:facet name="header">
+								Product Description
+							</f:facet>
+							<h:outputText value="#{product.productDescription}" />
+						</b:dataTableColumn>
+						
+						<b:dataTableColumn >
+							<f:facet name="header">
+								List Price
+							</f:facet>
+							<h:outputText value="#{product.listPrice}">
+								<f:convertNumber type="currency" currencySymbol="$"/>/>
+							</h:outputText>
+						</b:dataTableColumn>
+										
+						<b:dataTableColumn>
+							<f:facet name="header">
+								Action
+							</f:facet>
+							<b:commandButton value="view details" 
+								look="link"
+								actionListener="#{productInformationQueryController.findProduct(product.productId)}"
+								ajax="true" update="queryForm:querySingleResultPanel queryForm:queryResultListPanel messages">
+							</b:commandButton> 
+						</b:dataTableColumn>
+					</b:dataTable>
 	
 				</b:panel>
 			</p:outputPanel>
@@ -67,7 +113,46 @@
 								itemLabel="#{entry.value}"
 								itemValue="#{entry.key}"/>
 						</b:selectOneMenu>
-	
+									<b:panelGrid colSpans="4,8">
+											<h:outputLabel value="ProductId" />
+											<h:outputText  value="#{productInformationQueryController.queryProductInformationSingleResult.productId}" />		
+											
+											<h:outputLabel value="Product Name" />
+											<h:outputText id="productName" value="#{productInformationQueryController.queryProductInformationSingleResult.productName}" />		
+											
+											<h:outputLabel value="Product Description" />
+											<h:outputText id="productDescription" value="#{productInformationQueryController.queryProductInformationSingleResult.productDescription}" />
+
+											<h:outputLabel value="Category Name" />
+											<h:outputText value="#{productInformationQueryController.queryProductInformationSingleResult.category.categoryName}" />
+											
+											<h:outputLabel value="Weight Class" />
+											<h:outputText value="#{productInformationQueryController.queryProductInformationSingleResult.weightClass}" />
+											
+											<h:outputLabel value="Warranty Period" />
+											<h:outputText value="#{productInformationQueryController.queryProductInformationSingleResult.warrantyPeriod}" />
+											
+											<h:outputLabel value="Product Status" />
+											<h:outputText value="#{productInformationQueryController.queryProductInformationSingleResult.productStatus}" />
+											
+											
+											<h:outputLabel value="List Price" />
+											<h:outputText value="#{productInformationQueryController.queryProductInformationSingleResult.listPrice}">
+												<f:convertNumber type="currency" currencySymbol="$"/>
+											</h:outputText>	
+											
+											<h:outputLabel value="Min Price" />
+											<h:outputText value="#{productInformationQueryController.queryProductInformationSingleResult.minPrice}">
+												<f:convertNumber type="currency" currencySymbol="$"/>
+											</h:outputText>	
+											
+											<h:outputLabel value="Catalog URL" />
+											
+											<h:outputLink value="#{productInformationQueryController.queryProductInformationSingleResult.catalogUrl}">
+												<h:outputText value="#{productInformationQueryController.queryProductInformationSingleResult.catalogUrl}" />
+											</h:outputLink>
+											
+										</b:panelGrid>
 				
 				</b:panel>
 			
