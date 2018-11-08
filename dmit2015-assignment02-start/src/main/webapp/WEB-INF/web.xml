@@ -52,5 +52,77 @@
 		<extension>woff2</extension>
 		<mime-type>font/woff2</mime-type>
 	</mime-mapping>
+	
+	<!-- 
+	<security-constraint>
+		<display-name>Use HTTPS only</display-name>
+		<web-resource-collection>
+			<web-resource-name>sslResources</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+ -->	
+	
+	<security-role>
+		<role-name>DMIT2015Instructor</role-name>
+	</security-role>
+ 	<security-role>
+		<role-name>DMIT2015Student</role-name>
+	</security-role>
+	<security-role>
+		<role-name>PROG_DMIT</role-name>
+	</security-role>
+	
+ 	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>queryResources</web-resource-name>
+			<url-pattern>/protected/viewJobs.xhtml</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>**</role-name>
+		</auth-constraint>
+	</security-constraint>
+	
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>reportResources</web-resource-name>
+			<url-pattern>/protected/createJob.xhtml</url-pattern>
+			<url-pattern>/protected/editJob.xhtml </url-pattern>
+			<url-pattern>/protected/createLocation.xhtml</url-pattern>
+			<url-pattern>/protected/editLocation.xhtml </url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>DMIT2015Instructor</role-name>
+			<role-name>DMIT2015Student</role-name>
+			<role-name>PROG_DMIT</role-name>
+		</auth-constraint>
+	</security-constraint>
+	
+
+		<!-- Error pages -->
+
+	<error-page>
+		<error-code>401</error-code>
+		<location>/WEB-INF/errorpages/401.xhtml</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/WEB-INF/errorpages/403.xhtml</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/errorpages/404.xhtml</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/errorpages/500.xhtml</location>
+	</error-page>
+	<error-page>
+		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
+		<location>/WEB-INF/errorpages/expired.xhtml</location>
+	</error-page>
 
 </web-app>
