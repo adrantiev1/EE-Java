@@ -25,6 +25,8 @@
 		<class>dmit2015.hr.entity.JobHistoryPK</class>
 		<class>dmit2015.hr.entity.Location</class>
 		<class>dmit2015.oe.entity.Category</class>
+		<class>security.entity.LoginGroup</class>
+		<class>security.entity.LoginUser</class>
 		<properties>
 			<!-- Properties for Hibernate -->
 			<!-- <property name="hibernate.hbm2ddl.auto" value="validate" /> -->
