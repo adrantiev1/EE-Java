@@ -3,6 +3,7 @@ package dmit2015.hr.service;
 import java.util.List;
 
 import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -14,18 +15,20 @@ import dmit2015.hr.entity.Location;
 
 
 @Stateless
+@PermitAll
 @DeclareRoles({"DMIT2015Instructor","DMIT2015Student","PROG_DMIT"})
 public class HumanResourceService {
 	
 	@Inject
 	private EntityManager entityManager;
 	
+	
 	public List<Job> findAllJob(){
 		return entityManager.createQuery(
 				"SELECT j FROM Job j ORDER BY j.jobTitle",Job.class
 				).getResultList();
 	}
-	
+
 	public List<Location> findAllLocation(){
 		return entityManager.createQuery(
 				"SELECT l FROM Location l ORDER BY l.country.countryName",Location.class
@@ -51,6 +54,7 @@ public class HumanResourceService {
 		}
 		entityManager.remove( existingjob );
 	}
+	
 	public void deleteJobById(String jobId) throws Exception {
 		Job existingJob = findOneJob(jobId);
 		deleteJob(existingJob);
@@ -65,6 +69,7 @@ public class HumanResourceService {
 	
 //	Location CRUD
 	
+	@RolesAllowed({"DMIT2015Instructor","DMIT2015Student","PROG_DMIT"})
 	public void addLocation(Location newLocation) {
 		entityManager.persist(newLocation);
 	}
@@ -73,9 +78,11 @@ public class HumanResourceService {
 		return entityManager.find(Location.class, locationId);
 	}
 	
+	@RolesAllowed({"DMIT2015Instructor","DMIT2015Student"})
 	public void updateLocation(Location existingLocation) {
 		entityManager.merge(existingLocation);
 	}
+	@RolesAllowed({"DMIT2015Instructor"})
 	public void deleteLocation(Location existingLocation) throws Exception{
 		existingLocation = entityManager.merge(existingLocation);
 		if (existingLocation.getDepartments().size() > 0) {
@@ -83,6 +90,7 @@ public class HumanResourceService {
 		}
 		entityManager.remove( existingLocation );
 	}
+	
 	public void deleteLocationById(Long locationId) throws Exception {
 		Location existingLocation = findOneLocation(locationId);
 		deleteLocation(existingLocation);
@@ -90,6 +98,7 @@ public class HumanResourceService {
 	
 	
 //	for finding the country name and id
+	
 	public List<Country> findAllCountries(){
 		return entityManager.createQuery(
 				"SELECT c FROM Country c ORDER BY c.countryName",Country.class
