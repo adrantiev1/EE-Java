@@ -12,18 +12,16 @@
 	xmlns:hf="http://highfaces.org"
 	template="/WEB-INF/templates/template-assignment03.xhtml">
 
-	<ui:param name="title" value="Session Expired" />
-	
+	<ui:param name="title" value="Unauthorized" />
+
 	<ui:define name="maincontent">
-		<h2>Session Expired</h2>
-		<p>
-			Sorry, your session has expired.
-			This can happen when you have been inactive too long, or when you have been logged out.
+		<b:jumbotron>
+			<h1>HTTP Error 401 - Unauthorized</h1>
+		</b:jumbotron>
+
+		<p>You need to login to access the requested resource.
 		</p>
-		<p>
-			You can try going back to <a href="#{requestScope['javax.servlet.error.request_uri']}">the same page</a>,
-			or you can restart at <h:link outcome="/index">the home page</h:link>.
-		</p>
+
 	</ui:define>
 
 </ui:composition>

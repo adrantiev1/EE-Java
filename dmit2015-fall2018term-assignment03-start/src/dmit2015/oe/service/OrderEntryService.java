@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.List;
 
 import java.text.ParseException;
+
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -27,6 +30,7 @@ import dmit2015.oe.report.ProductSales;
 
 
 @Stateless
+@DeclareRoles({"Investor","Auditor"})
 public class OrderEntryService {
 
 	@Inject
@@ -194,7 +198,7 @@ public class OrderEntryService {
 		return entityManager.createQuery("SELECT c FROM Category c "
 				+ "WHERE c.parentCategory.categoryId = 90 ", Category.class).getResultList();
 	}
-	
+	@RolesAllowed({"Investor","Auditor"})
 	public List<CategorySales> findCategorSalesForOnlineCatalog() {
 		List<CategorySales> temVar = null;
 		try {
@@ -213,7 +217,7 @@ public class OrderEntryService {
 		return temVar;
 
 	}
-	
+	@RolesAllowed({"Investor","Auditor"})
 	public List<CategorySales> findCategorSalesForOnlineCatalogYear(Integer year) {
 		try {
 			if (year == null) {
@@ -239,7 +243,7 @@ public class OrderEntryService {
 		}
 		return temVar;
 	}
-	
+	@RolesAllowed({"Investor","Auditor"})
 	public List<CategorySales> findCategorSalesForParentCategoryId(Long parentCategoryId) {
 		List<CategorySales>  CatSalesList = null;
 		if (parentCategoryId == (long)90) {
@@ -266,7 +270,7 @@ public class OrderEntryService {
 		return CatSalesList;
 		
 	}
-	
+	@RolesAllowed({"Investor","Auditor"})
 	public List<CategorySales> findCategorSalesForParentCategoryIdAndYear(Long parentCategoryId, Integer year) {
 		List<CategorySales>  CatSalesList = null;
 		if (year == null) {
@@ -300,7 +304,7 @@ public class OrderEntryService {
 		
 		return CatSalesList;
 	}
-		
+	@RolesAllowed({"Investor"})
 	public List<ProductSales> findProductSales(int maxResult) {
 		return entityManager.createQuery("SELECT new dmit2015.oe.report.ProductSales(p.productName,SUM(oi.unitPrice * oi.quantity),c.categoryName, SUM(oi.quantity), p.productId)"
 				+ " FROM OrderItem oi, IN (oi.productInformation) p, IN (p.category) c"
@@ -312,6 +316,7 @@ public class OrderEntryService {
 				.getResultList();
 	}
 	
+	@RolesAllowed({"Investor"})
 	public List<ProductSales> findProductSalesForYear(Integer year, int maxResult) {
 		if (year == null) {
 			return findProductSales(maxResult);
