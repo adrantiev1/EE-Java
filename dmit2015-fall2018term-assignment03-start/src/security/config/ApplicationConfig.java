@@ -8,9 +8,9 @@ import javax.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
 import javax.security.enterprise.identitystore.LdapIdentityStoreDefinition;
 import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
 
-//@BasicAuthenticationMechanismDefinition(
-//		realmName="jaspitest"
-//)
+@BasicAuthenticationMechanismDefinition(
+		realmName="jaspitest"
+)
 
 @CustomFormAuthenticationMechanismDefinition(
 	loginToContinue = @LoginToContinue(

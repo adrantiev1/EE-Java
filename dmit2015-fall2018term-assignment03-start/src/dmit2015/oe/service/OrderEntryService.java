@@ -8,6 +8,7 @@ import java.util.List;
 import java.text.ParseException;
 
 import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -30,6 +31,7 @@ import dmit2015.oe.report.ProductSales;
 
 
 @Stateless
+@PermitAll
 @DeclareRoles({"Investor","Auditor"})
 public class OrderEntryService {
 
