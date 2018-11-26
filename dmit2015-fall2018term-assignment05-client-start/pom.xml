@@ -141,7 +141,7 @@
 			given to the generated war, and hence the context root) -->
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
-			<!-- <plugin>
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jaxws-maven-plugin</artifactId>
 				<version>2.5</version>
@@ -155,7 +155,7 @@
 								<vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
 							</vmArgs>
 							<wsdlUrls>
-								<wsdlUrl>http://localhost:8080/dmit2015-fall2018term-assignment05-server-start/HumanResourceEndPoint?wsdl</wsdlUrl>
+								<wsdlUrl>http://192.168.73.128:8080/dmit2015-fall2018term-assignment05-server-start/HumanResourceService?wsdl</wsdlUrl>
 							</wsdlUrls>
 							<keep>true</keep>
 							<packageName>dmit2015.soap</packageName>
@@ -163,7 +163,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin> -->
+			</plugin>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>${version.war.plugin}</version>

@@ -18,6 +18,13 @@
 		<h1>#{text['title']}</h1>
 		<h2>#{text['assignment']} 5 - Java XML Web Services</h2>
 
+
+		<b:messages id="messages"/>
+		<b:form>
+			<b:commandButton value="Show me my lucky number"
+			actionListener="#{lottoController.doLuckyNumber()}"
+			update="messages"></b:commandButton>
+		</b:form>
 	</ui:define>
 
 </ui:composition>
