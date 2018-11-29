@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="DjaR0XhiIIg4iM2k91SdEWPRuGA=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="RWSOQiIg6z3VDbKP3Av0QbFSF+8=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="HumanResourceServiceSoapBinding">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="HumanResourcePort" contract="ServiceReference1.HumanResourceXmlWebService" bindingType="basicHttpBinding" address="http://192.168.73.130:8080/dmit2015-fall2018term-assignment05-server-start/HumanResourceService" bindingConfiguration="HumanResourceServiceSoapBinding">
+    <endpoint name="HumanResourcePort" contract="ServiceReference1.HumanResourceXmlWebService" bindingType="basicHttpBinding" address="http://192.168.73.128:8080/dmit2015-fall2018term-assignment05-server-start/HumanResourceService" bindingConfiguration="HumanResourceServiceSoapBinding">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://192.168.73.130:8080/dmit2015-fall2018term-assignment05-server-start/HumanResourceService</serializedValue>
+          <serializedValue>http://192.168.73.128:8080/dmit2015-fall2018term-assignment05-server-start/HumanResourceService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

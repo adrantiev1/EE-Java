@@ -19,10 +19,10 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://192.168.73.130:8080/dmit2015-fall2018term-assignment05-server-start/HumanResourceService?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://192.168.73.128:8080/dmit2015-fall2018term-assignment05-server-start/HumanResourceService?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="HumanResourceService.wsdl" MetadataType="Wsdl" ID="b898bbce-3eec-4893-afde-50057319a9b3" SourceId="1" SourceUrl="http://192.168.73.130:8080/dmit2015-fall2018term-assignment05-server-start/HumanResourceService?wsdl" />
+    <MetadataFile FileName="HumanResourceService1.wsdl" MetadataType="Wsdl" ID="38100658-6117-4849-8383-8e1a0ea93650" SourceId="1" SourceUrl="http://192.168.73.128:8080/dmit2015-fall2018term-assignment05-server-start/HumanResourceService?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

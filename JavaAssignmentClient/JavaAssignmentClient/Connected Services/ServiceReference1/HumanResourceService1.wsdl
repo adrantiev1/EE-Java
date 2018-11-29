@@ -140,7 +140,7 @@
   </wsdl:binding>
   <wsdl:service name="HumanResourceService">
     <wsdl:port name="HumanResourcePort" binding="tns:HumanResourceServiceSoapBinding">
-      <soap:address location="http://192.168.73.130:8080/dmit2015-fall2018term-assignment05-server-start/HumanResourceService" />
+      <soap:address location="http://192.168.73.128:8080/dmit2015-fall2018term-assignment05-server-start/HumanResourceService" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
