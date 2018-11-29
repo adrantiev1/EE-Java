@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://localhost/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="HumanResourceService" targetNamespace="http://localhost/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://localhost/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="findAllJob" type="tns:findAllJob" />
+      <xs:element name="findAllJobResponse" type="tns:findAllJobResponse" />
+      <xs:element name="findOneJob" type="tns:findOneJob" />
+      <xs:element name="findOneJobResponse" type="tns:findOneJobResponse" />
+      <xs:element name="job" type="tns:job" />
+      <xs:element name="luckyLottoNumber" type="tns:luckyLottoNumber" />
+      <xs:element name="luckyLottoNumberResponse" type="tns:luckyLottoNumberResponse" />
+      <xs:element name="luckyNumberArray" type="tns:luckyNumberArray" />
+      <xs:element name="luckyNumberArrayResponse" type="tns:luckyNumberArrayResponse" />
+      <xs:complexType name="luckyNumberArray">
+        <xs:sequence>
+          <xs:element name="arg0" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="luckyNumberArrayResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="luckyLottoNumber">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="luckyLottoNumberResponse">
+        <xs:sequence>
+          <xs:element name="return" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="findAllJob">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="findAllJobResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:job" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="job">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="jobId" type="xs:string" />
+          <xs:element minOccurs="0" name="jobTitle" type="xs:string" />
+          <xs:element minOccurs="0" name="maxSalary" type="xs:decimal" />
+          <xs:element minOccurs="0" name="minSalary" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="findOneJob">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="JobId" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="findOneJobResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Job" type="tns:job" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="luckyNumberArray">
+    <wsdl:part name="parameters" element="tns:luckyNumberArray" />
+  </wsdl:message>
+  <wsdl:message name="luckyLottoNumberResponse">
+    <wsdl:part name="parameters" element="tns:luckyLottoNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="luckyLottoNumber">
+    <wsdl:part name="parameters" element="tns:luckyLottoNumber" />
+  </wsdl:message>
+  <wsdl:message name="findAllJob">
+    <wsdl:part name="parameters" element="tns:findAllJob" />
+  </wsdl:message>
+  <wsdl:message name="findOneJob">
+    <wsdl:part name="parameters" element="tns:findOneJob" />
+  </wsdl:message>
+  <wsdl:message name="findAllJobResponse">
+    <wsdl:part name="parameters" element="tns:findAllJobResponse" />
+  </wsdl:message>
+  <wsdl:message name="luckyNumberArrayResponse">
+    <wsdl:part name="parameters" element="tns:luckyNumberArrayResponse" />
+  </wsdl:message>
+  <wsdl:message name="findOneJobResponse">
+    <wsdl:part name="parameters" element="tns:findOneJobResponse" />
+  </wsdl:message>
+  <wsdl:portType name="HumanResourceXmlWebService">
+    <wsdl:operation name="luckyNumberArray">
+      <wsdl:input name="luckyNumberArray" message="tns:luckyNumberArray" />
+      <wsdl:output name="luckyNumberArrayResponse" message="tns:luckyNumberArrayResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="luckyLottoNumber">
+      <wsdl:input name="luckyLottoNumber" message="tns:luckyLottoNumber" />
+      <wsdl:output name="luckyLottoNumberResponse" message="tns:luckyLottoNumberResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="findAllJob">
+      <wsdl:input name="findAllJob" message="tns:findAllJob" />
+      <wsdl:output name="findAllJobResponse" message="tns:findAllJobResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="findOneJob">
+      <wsdl:input name="findOneJob" message="tns:findOneJob" />
+      <wsdl:output name="findOneJobResponse" message="tns:findOneJobResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="HumanResourceServiceSoapBinding" type="tns:HumanResourceXmlWebService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="luckyNumberArray">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="luckyNumberArray">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="luckyNumberArrayResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="luckyLottoNumber">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="luckyLottoNumber">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="luckyLottoNumberResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findAllJob">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="findAllJob">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="findAllJobResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findOneJob">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="findOneJob">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="findOneJobResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="HumanResourceService">
+    <wsdl:port name="HumanResourcePort" binding="tns:HumanResourceServiceSoapBinding">
+      <soap:address location="http://192.168.73.130:8080/dmit2015-fall2018term-assignment05-server-start/HumanResourceService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
