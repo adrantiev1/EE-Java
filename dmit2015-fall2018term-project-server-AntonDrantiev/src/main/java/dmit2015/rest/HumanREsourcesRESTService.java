@@ -57,6 +57,22 @@ public class HumanREsourcesRESTService {
 			e.printStackTrace();
 		}
 	}
+	/*  list jobs
+	 *  curl -k -XGET http://localhost:8080/dmit2015-fall2018term-project-server-start/rest/humanResources-api/Jobs
+	 *  
+	 *  create job
+	 *  curl -k -XPOST -HContent-type:application/json --data '{"jobId":"Test","jobTitle": "Test" }' http://localhost:8080/dmit2015-fall2018term-project-server-start/rest/humanResources-api/Jobs
+	 *  
+	 *  update job
+	 *  curl -k -XPUT -HContent-type:application/json --data '{"jobId":"Test","jobTitle": "TestUpdate" }' http://localhost:8080/dmit2015-fall2018term-project-server-start/rest/humanResources-api/Jobs
+	 * 
+	 *  find one job
+	 *  curl -k -XGET http://localhost:8080/dmit2015-fall2018term-project-server-start/rest/humanResources-api/Jobs/"Test"
+	 *  
+	 *  delete job
+	 *  curl -k -XDELETE http://localhost:8080/dmit2015-fall2018term-project-server-start/rest/humanResources-api/Jobs/"Test"
+	 *  
+	 *  */
 	
 
 }
