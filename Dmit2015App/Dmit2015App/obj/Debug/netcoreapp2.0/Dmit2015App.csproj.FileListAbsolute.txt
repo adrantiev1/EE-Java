@@ -1,0 +1,11 @@
+c:\users\adrantiev1\source\repos\Dmit2015App\Dmit2015App\bin\Debug\netcoreapp2.0\Dmit2015App.deps.json
+c:\users\adrantiev1\source\repos\Dmit2015App\Dmit2015App\bin\Debug\netcoreapp2.0\Dmit2015App.runtimeconfig.json
+c:\users\adrantiev1\source\repos\Dmit2015App\Dmit2015App\bin\Debug\netcoreapp2.0\Dmit2015App.runtimeconfig.dev.json
+c:\users\adrantiev1\source\repos\Dmit2015App\Dmit2015App\bin\Debug\netcoreapp2.0\Dmit2015App.dll
+c:\users\adrantiev1\source\repos\Dmit2015App\Dmit2015App\obj\Debug\netcoreapp2.0\Dmit2015App.csprojAssemblyReference.cache
+c:\users\adrantiev1\source\repos\Dmit2015App\Dmit2015App\obj\Debug\netcoreapp2.0\Dmit2015App.csproj.CoreCompileInputs.cache
+c:\users\adrantiev1\source\repos\Dmit2015App\Dmit2015App\obj\Debug\netcoreapp2.0\Dmit2015App.AssemblyInfoInputs.cache
+c:\users\adrantiev1\source\repos\Dmit2015App\Dmit2015App\obj\Debug\netcoreapp2.0\Dmit2015App.AssemblyInfo.cs
+c:\users\adrantiev1\source\repos\Dmit2015App\Dmit2015App\bin\Debug\netcoreapp2.0\Dmit2015App.pdb
+c:\users\adrantiev1\source\repos\Dmit2015App\Dmit2015App\obj\Debug\netcoreapp2.0\Dmit2015App.dll
+c:\users\adrantiev1\source\repos\Dmit2015App\Dmit2015App\obj\Debug\netcoreapp2.0\Dmit2015App.pdb
