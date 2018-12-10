@@ -9,7 +9,7 @@ private String jobId;
 private String jobTitle;
 private Integer maxSalary;
 private Integer minSalary;
-private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
 
 public String getJobId() {
 return jobId;
@@ -43,10 +43,5 @@ public void setMinSalary(Integer minSalary) {
 this.minSalary = minSalary;
 }
 
-public Map<String, Object> getAdditionalProperties() {
-return this.additionalProperties;
-}
 
-public void setAdditionalProperty(String name, Object value) {
-this.additionalProperties.put(name, value);
 }
